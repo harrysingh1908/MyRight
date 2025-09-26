@@ -269,29 +269,52 @@ export interface AutocompleteResponse {
  * Search analytics and usage tracking
  */
 export interface SearchAnalytics {
-  /** Query that was searched */
-  query: string;
+  /** Total number of searches performed */
+  totalSearches: number;
   
-  /** Number of results returned */
-  resultCount: number;
+  /** Average response time across all searches */
+  averageResponseTime: number;
   
-  /** Whether user clicked on any results */
-  hadClickthrough: boolean;
+  /** Map of popular queries and their frequency */
+  popularQueries: Map<string, number>;
   
-  /** Position of clicked result (if any) */
-  clickPosition?: number;
+  /** Map of category usage frequency */
+  categoryUsage: Map<string, number>;
   
-  /** Time user spent viewing results */
-  viewDuration?: number;
+  /** Map of click-through rates for query-result pairs */
+  clickThroughRates: Map<string, number>;
   
-  /** Applied filters */
-  filters?: SearchFilters;
+  /** Overall search success rate (searches with results) */
+  searchSuccessRate: number;
+}
+
+/**
+ * Performance metrics for search operations
+ */
+export interface SearchPerformanceMetrics {
+  /** Total number of searches performed */
+  totalSearches: number;
   
-  /** Timestamp of search */
-  timestamp: string;
+  /** Average response time in milliseconds */
+  averageResponseTime: number;
   
-  /** User session identifier */
-  sessionId?: string;
+  /** Cache hit rate (0.0 to 1.0) */
+  cacheHitRate: number;
+  
+  /** Success rate (searches that returned results) */
+  successRate: number;
+  
+  /** Most popular queries */
+  popularQueries: Array<{
+    query: string;
+    count: number;
+  }>;
+  
+  /** Category usage statistics */
+  categoryUsage: Array<{
+    category: string;
+    count: number;
+  }>;
 }
 
 /**

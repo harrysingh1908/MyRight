@@ -1,0 +1,86 @@
+{
+  "id": "salary-unpaid-employment",
+  "title": "Employer Not Paying Salary or Wages",
+  "description": "When your employer refuses to pay your salary, wages, or withholds payment without valid reason",
+  "category": "employment",
+  "severity": "high",
+  "rights": [
+    {
+      "id": "right-to-wages",
+      "title": "Right to Timely Payment of Wages",
+      "description": "Every employee has the legal right to receive their wages on time as per the agreement",
+      "legalBasis": "Payment of Wages Act, 1936",
+      "section": "Section 5"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Document the Issue",
+      "description": "Keep records of unpaid salary periods, employment contract, and communication with employer",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true
+    },
+    {
+      "id": "step-2", 
+      "title": "Send Written Notice",
+      "description": "Send a formal written notice to employer demanding payment of due wages",
+      "order": 2,
+      "timeframe": "within 7 days",
+      "required": true
+    },
+    {
+      "id": "step-3",
+      "title": "File Complaint with Labour Authority",
+      "description": "If employer doesn't respond, file complaint with appropriate labour authority",
+      "order": 3,
+      "timeframe": "within 30 days",
+      "required": false
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-payment-wages-act",
+      "title": "Payment of Wages Act, 1936",
+      "authority": "Ministry of Labour and Employment",
+      "url": "https://labour.gov.in/sites/default/files/ThePaymentofWagesAct1936.pdf",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-labour-ministry-guidelines",
+      "title": "Guidelines on Wage Payment Disputes",
+      "authority": "Ministry of Labour and Employment", 
+      "url": "https://labour.gov.in/wage-payment-guidelines",
+      "type": "guideline",
+      "lastVerified": "2024-01-10",
+      "status": "active"
+    }
+  ],
+  "keywords": ["salary", "wages", "unpaid", "employer", "payment", "work", "job", "labour"],
+  "variations": [
+    "My company is not paying salary",
+    "Boss withholds wages",
+    "Employer refusing to pay due amount",
+    "Salary not received for months",
+    "Company not giving salary on time"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager",
+    "version": "1.2",
+    "tags": ["employment", "wages", "disputes", "labour-law"],
+    "difficulty": "intermediate",
+    "estimatedReadingTime": "5 minutes"
+  }
+}

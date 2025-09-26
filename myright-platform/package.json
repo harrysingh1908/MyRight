@@ -15,7 +15,13 @@
     "test:e2e:ui": "playwright test --ui",
     "format": "prettier --write \"**/*.{js,ts,jsx,tsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{js,ts,jsx,tsx,json,css,md}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "validate:data": "node scripts/validation/validate-data.js",
+    "embeddings:generate": "node scripts/embeddings/generate-embeddings.js",
+    "process:data": "node scripts/process-data.js",
+    "data:validate": "npm run validate:data",
+    "data:embeddings": "npm run embeddings:generate",
+    "data:process": "npm run process:data"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -40,6 +46,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "glob": "^11.0.3",
     "jest": "^30.1.3",
     "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.1.2",
