@@ -482,3 +482,14 @@ export class ContentService {
     };
   }
 }
+
+// Export default instance
+export const contentService = new ContentService({
+  scenariosDir: './src/data/scenarios',
+  embeddingsDir: './data/embeddings',
+  supportedFormats: ['json'],
+  validateOnLoad: true,
+  enableCaching: true,
+  cacheDuration: 300000,
+  preloadContent: false,
+});

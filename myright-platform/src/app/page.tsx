@@ -1,103 +1,245 @@
-import Image from "next/image";
+'use client';
+
+import React, { useState, useCallback } from 'react';
+import { SearchInterface } from '@/components/search/SearchInterface';
+import { SearchResults } from '@/components/search/SearchResults';
+import { CategoryNavigation } from '@/components/navigation/CategoryNavigation';
+import { LegalDisclaimer } from '@/components/ui/LegalDisclaimer';
+import { searchService } from '@/services/searchService';
+import { SearchRequest, SearchFilters, SearchResponse } from '@/types/search';
+import { LegalScenario, Category } from '@/types/content';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [searchResponse, setSearchResponse] = useState<SearchResponse | undefined>();
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<SearchFilters>({});
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Sample categories for navigation
+  const categories: Category[] = [
+    { 
+      id: 'employment', 
+      name: 'Employment', 
+      description: 'Workplace rights and issues', 
+      scenarioCount: 15, 
+      count: 15, 
+      icon: '💼', 
+      color: '#3B82F6',
+      sortOrder: 1,
+      isActive: true,
+      slug: 'employment',
+      keywords: ['work', 'job', 'salary', 'workplace', 'employment']
+    },
+    { 
+      id: 'housing', 
+      name: 'Housing', 
+      description: 'Tenant and housing rights', 
+      scenarioCount: 12, 
+      count: 12, 
+      icon: '🏠', 
+      color: '#10B981',
+      sortOrder: 2,
+      isActive: true,
+      slug: 'housing',
+      keywords: ['rent', 'tenant', 'landlord', 'housing', 'eviction']
+    },
+    { 
+      id: 'consumer', 
+      name: 'Consumer', 
+      description: 'Consumer protection', 
+      scenarioCount: 8, 
+      count: 8, 
+      icon: '🛒', 
+      color: '#F59E0B',
+      sortOrder: 3,
+      isActive: true,
+      slug: 'consumer',
+      keywords: ['purchase', 'refund', 'warranty', 'consumer', 'product']
+    },
+    { 
+      id: 'family', 
+      name: 'Family', 
+      description: 'Family law matters', 
+      scenarioCount: 10, 
+      count: 10, 
+      icon: '👨‍👩‍👧‍👦', 
+      color: '#EF4444',
+      sortOrder: 4,
+      isActive: true,
+      slug: 'family',
+      keywords: ['family', 'child', 'custody', 'divorce', 'marriage']
+    },
+    { 
+      id: 'digital', 
+      name: 'Digital', 
+      description: 'Digital rights and privacy', 
+      scenarioCount: 6, 
+      count: 6, 
+      icon: '💻', 
+      color: '#8B5CF6',
+      sortOrder: 5,
+      isActive: true,
+      slug: 'digital',
+      keywords: ['privacy', 'data', 'digital', 'online', 'internet']
+    },
+    { 
+      id: 'police', 
+      name: 'Police', 
+      description: 'Police interactions', 
+      scenarioCount: 5, 
+      count: 5, 
+      icon: '👮', 
+      color: '#6B7280',
+      sortOrder: 6,
+      isActive: true,
+      slug: 'police',
+      keywords: ['police', 'arrest', 'rights', 'law enforcement', 'stop']
+    },
+  ];
+
+  const handleSearch = useCallback(async (query: string, filters?: SearchFilters) => {
+    setIsSearching(true);
+    setSearchQuery(query);
+    
+    try {
+      const request: SearchRequest = {
+        query,
+        filters: filters || activeFilters,
+        pagination: { page: 1, pageSize: 20 }
+      };
+      const results = await searchService.search(request);
+      setSearchResponse(results);
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchResponse(undefined);
+    } finally {
+      setIsSearching(false);
+    }
+  }, [activeFilters]);
+
+  const handleResultClick = useCallback(async (scenario: LegalScenario, position: number) => {
+    // Handle result click - could navigate to detail page or show modal
+    console.log('Clicked scenario:', scenario.id, 'at position:', position);
+    // For now, just log - in a full app this would navigate to a detail page
+  }, []);
+
+  const handleCategorySelect = useCallback(async (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    
+    // Trigger search with category filter
+    const newFilters = { ...activeFilters, category: categoryId };
+    setActiveFilters(newFilters);
+    
+    if (searchQuery) {
+      await handleSearch(searchQuery, newFilters);
+    }
+  }, [searchQuery, activeFilters, handleSearch]);
+
+  const handleQueryChange = useCallback((query: string) => {
+    setSearchQuery(query);
+  }, []);
+
+  const handleFiltersChange = useCallback((filters: SearchFilters) => {
+    setActiveFilters(filters);
+    if (searchQuery) {
+      handleSearch(searchQuery, filters);
+    }
+  }, [searchQuery, handleSearch]);
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                MyRight
+              </h1>
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                Legal Rights Platform
+              </span>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+
+      {/* Legal Disclaimer */}
+      {showDisclaimer && (
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <LegalDisclaimer
+              variant="banner"
+              isDismissible={true}
+              onClose={() => setShowDisclaimer(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Left Sidebar - Categories */}
+          <aside className="lg:col-span-1">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Categories
+              </h2>
+              <CategoryNavigation
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onCategorySelect={handleCategorySelect}
+                layout="sidebar"
+              />
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <main className="lg:col-span-3">
+            {/* Search Interface */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+              <SearchInterface
+                query={searchQuery}
+                onQueryChange={handleQueryChange}
+                onSearch={handleSearch}
+                onFiltersChange={handleFiltersChange}
+                isLoading={isSearching}
+                placeholder="Describe your legal situation..."
+                showFilters={true}
+              />
+            </div>
+
+            {/* Search Results or Welcome Message */}
+            {searchQuery ? (
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <SearchResults
+                  searchResponse={searchResponse}
+                  isLoading={isSearching}
+                  onResultClick={handleResultClick}
+                />
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <div className="max-w-md mx-auto">
+                  <div className="text-6xl mb-4">⚖️</div>
+                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                    Know Your Rights
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Search for legal scenarios and understand your rights in various situations.
+                    Select a category above or describe your situation to get started.
+                  </p>
+                  <div className="text-sm text-gray-500 dark:text-gray-500">
+                    💡 Try searching for "unpaid wages", "tenant rights", or "workplace harassment"
+                  </div>
+                </div>
+              </div>
+            )}
+          </main>
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,6 +7,9 @@
 
 import { LegalScenario } from './index';
 
+// Re-export for convenience
+export type { LegalScenario };
+
 /**
  * Category for organizing legal scenarios
  */
@@ -28,6 +31,9 @@ export interface Category {
   
   /** Number of scenarios in this category */
   scenarioCount: number;
+  
+  /** Alias for scenarioCount to support 'count' property */
+  count?: number;
   
   /** Subcategories within this category */
   subcategories?: Subcategory[];

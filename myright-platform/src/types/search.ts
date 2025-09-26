@@ -123,7 +123,10 @@ export interface SearchResponse {
  * Filters that can be applied to search results
  */
 export interface SearchFilters {
-  /** Filter by category */
+  /** Filter by single category */
+  category?: string;
+  
+  /** Filter by multiple categories */
   categories?: string[];
   
   /** Filter by severity level */

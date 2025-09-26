@@ -1111,3 +1111,15 @@ export class EmbeddingService {
       .slice(0, limit);
   }
 }
+
+// Export default instance
+export const searchService = new SearchService({
+  minScore: 0.3,
+  maxResults: 20,
+  autocompleteSuggestions: 8,
+  enableFuzzyMatch: true,
+  keywordBoost: 1.2,
+  titleBoost: 1.5,
+  enableCategoryFilter: true,
+  enableSeverityFilter: true,
+});

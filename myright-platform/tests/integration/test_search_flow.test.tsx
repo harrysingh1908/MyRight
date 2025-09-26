@@ -2,29 +2,16 @@
  * Integration Test: Complete Search Flow
  * 
  * This test validates the end-to-end search functionality from user input
- * to result display. It MUST FAIL initially until all components and services
- * are implemented and integrated.
- * 
- * Integration Requirements:
- * 1. User can enter search query and get relevant results
- * 2. Search results are ranked by relevance
- * 3. Results include proper highlights and metadata
- * 4. Performance meets requirements (<200ms)
- * 5. Search works across different scenario types
+ * to result display using the complete Home page component.
  */
 
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-// These imports will fail until components are implemented
-import { SearchInterface } from '@/components/search/SearchInterface';
-import { SearchResults } from '@/components/search/SearchResults';
-import { SearchService } from '@/services/searchService';
-import { ContentService } from '@/services/contentService';
+import Home from '@/app/page';
 
 import { LegalScenario } from '@/types';
-import { SearchConfig } from '@/types/search';
+import { SearchResult } from '@/types/search';
 
 // Mock legal scenarios for integration testing
 const mockScenarios: LegalScenario[] = [
@@ -329,7 +316,8 @@ describe('Complete Search Flow Integration', () => {
     await user.type(searchInput, 'salary');
     
     const startTime = Date.now();
-    await user.click(screen.getByRole('button', { name: /search/i }));
+    // Use the exact button text to avoid ambiguity
+    await user.click(screen.getByRole('button', { name: 'Search' }));
     
     await waitFor(() => {
       expect(screen.getByText('Employer Not Paying Salary or Wages')).toBeInTheDocument();
