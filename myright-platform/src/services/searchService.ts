@@ -235,7 +235,7 @@ export class SearchService {
             request.filters
           );
           usedAlgorithm = 'semantic';
-        } catch (embeddingError) {
+        } catch {
           // Fall back to keyword search if embedding fails
           similarities = await this.performKeywordSearch(request.query, request.filters);
           usedAlgorithm = 'keyword';
@@ -420,7 +420,9 @@ export class SearchService {
     // Store scenarios for later use (in a real implementation)
     // For now, we'll just validate that we have the data
     const embeddingCount = Array.isArray(embeddings) ? embeddings.length : Object.keys(embeddings).length;
-    console.log(`Loaded ${scenarios.length} scenarios and ${embeddingCount} embedding sets`);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Loaded ${scenarios.length} scenarios and ${embeddingCount} embedding sets`);
+    }
   }
 
   /**
@@ -531,57 +533,13 @@ export class SearchService {
     // This is a placeholder for the actual implementation
   }
 
-  private async getAllScenariosAsResults(): Promise<SearchResult[]> {
-    const results: SearchResult[] = [];
-    
-    for (const [scenarioId, _embeddings] of this.scenarioEmbeddings) {
-      // Create a placeholder scenario for each loaded scenario ID
-      const placeholderScenario: LegalScenario = {
-        id: scenarioId,
-        title: 'Sample Scenario',
-        description: 'Sample description',
-        category: scenarioId.includes('employment') ? 'employment' : 
-                 scenarioId.includes('housing') ? 'housing' : 'consumer',
-        rights: [],
-        actionSteps: [],
-        sources: [],
-        keywords: [],
-        variations: [],
-        lastUpdated: '2024-01-15',
-        validationStatus: {
-          sourcesVerified: true,
-          legalReview: true,
-          clarityReview: true,
-          lastValidated: '2024-01-15'
-        },
-        severity: 'medium'
-      };
 
-      results.push({
-        scenario: placeholderScenario,
-        score: 1.0, // Maximum score for browsing results
-        matchedFields: [{
-          field: 'title',
-          score: 1.0,
-          matchedText: placeholderScenario.title
-        }],
-        highlights: [{
-          text: placeholderScenario.title,
-          field: 'title',
-          originalText: placeholderScenario.title
-        }],
-        matchType: 'title'
-      });
-    }
-    
-    return results;
-  }
 
   private async performKeywordSearch(query: string, _filters?: any): Promise<SearchResult[]> {
     const results: SearchResult[] = [];
     
     // Simple keyword matching against scenario IDs and titles
-    for (const [scenarioId, _embeddings] of this.scenarioEmbeddings) {
+    for (const [scenarioId] of this.scenarioEmbeddings) {
       const lowerQuery = query.toLowerCase();
       const lowerScenarioId = scenarioId.toLowerCase();
       
@@ -687,7 +645,7 @@ export class SearchService {
 
     // This would iterate through scenario embeddings and calculate similarity
     // Placeholder implementation
-    for (const [_scenarioId, embeddings] of this.scenarioEmbeddings) {
+    for (const [, embeddings] of this.scenarioEmbeddings) {
       for (const embedding of embeddings) {
         const similarity = this.calculateCosineSimilarity(queryEmbedding, embedding.vector);
         
@@ -846,16 +804,7 @@ export class SearchService {
   }
 
   // Note: This method is prepared for future faceted search features
-  private _generateFacets(results: SearchResult[]): Record<string, number> {
-    const facets: Record<string, number> = {};
 
-    // Count results by category
-    for (const result of results) {
-      facets[result.scenario.category] = (facets[result.scenario.category] || 0) + 1;
-    }
-
-    return facets;
-  }
 
   private async getQuerySuggestions(query: string, limit: number): Promise<AutocompleteSuggestion[]> {
     const suggestions: AutocompleteSuggestion[] = [];

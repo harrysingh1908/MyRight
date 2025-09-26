@@ -131,8 +131,8 @@ describe('SearchService Contract', () => {
       const response = await searchService.search(request);
       
       expect(response.results).toHaveLength(1);
-      expect(response.results[0].matchType).toBe('semantic');
-      expect(response.results[0].score).toBeGreaterThan(0.3); // Above threshold
+      expect(response.results[0]?.matchType).toBe('semantic');
+      expect(response.results[0]?.score).toBeGreaterThan(0.3); // Above threshold
     });
 
     test('should handle empty search query', async () => {
@@ -254,7 +254,7 @@ describe('SearchService Contract', () => {
       const scenarios = await searchService.getScenariosByCategory('employment');
       
       expect(scenarios).toHaveLength(1);
-      expect(scenarios[0].category).toBe('employment');
+      expect(scenarios[0]?.category).toBe('employment');
     });
 
     test('should handle invalid category', async () => {
@@ -387,8 +387,8 @@ describe('EmbeddingService Contract', () => {
       );
       
       expect(results).toHaveLength(2);
-      expect(results[0].id).toBe('a'); // Perfect match
-      expect(results[1].id).toBe('c'); // Close match
+      expect(results[0]?.id).toBe('a'); // Perfect match
+      expect(results[1]?.id).toBe('c'); // Close match
     });
   });
 });

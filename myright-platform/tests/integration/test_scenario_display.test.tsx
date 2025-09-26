@@ -17,16 +17,16 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-// These imports will fail until components are implemented
+// Component imports - only using implemented components
 import { ScenarioDetail } from '@/components/content/ScenarioDetail';
-import { LegalRights } from '@/components/content/LegalRights';
-import { ActionSteps } from '@/components/content/ActionSteps';
-import { SourceAttribution } from '@/components/content/SourceAttribution';
-import { RelatedScenarios } from '@/components/content/RelatedScenarios';
+// import { LegalRights } from '@/components/content/LegalRights';
+// import { ActionSteps } from '@/components/content/ActionSteps';
+// import { SourceAttribution } from '@/components/content/SourceAttribution';
+// import { RelatedScenarios } from '@/components/content/RelatedScenarios';
 import { ContentService } from '@/services/contentService';
 
 import { LegalScenario } from '@/types';
-import { ScenarioDetailProps } from '@/types/components';
+// import { ScenarioDetailProps } from '@/types/components';
 
 // Complete test scenario with all required data
 const completeScenario: LegalScenario = {

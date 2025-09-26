@@ -34,16 +34,12 @@ export class ContentService {
   private _config: ContentConfig;
   private cache: Map<string, { content: LegalScenario; cachedAt: number }>;
   private categories: Map<string, Category>;
-  private isInitialized: boolean;
   private contentDirectories: { scenarios: string; embeddings: string };
-  private loadScenarioCallCount: Map<string, number>;
 
   constructor(config: ContentConfig) {
     this._config = config;
     this.cache = new Map();
     this.categories = new Map();
-    this.isInitialized = false;
-    this.loadScenarioCallCount = new Map();
     this.contentDirectories = {
       scenarios: config.scenariosDir,
       embeddings: config.embeddingsDir
@@ -72,7 +68,7 @@ export class ContentService {
       await this.loadAllCategories();
     }
 
-    this.isInitialized = true;
+    // Initialization complete
   }
 
   /**

@@ -8,10 +8,15 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Home from '@/app/page';
+// Home page component removed - using custom components
+// import Home from '@/app/page';
 
 import { LegalScenario } from '@/types';
-import { SearchResult } from '@/types/search';
+import { SearchConfig, SearchResponse } from '@/types/search';
+import { SearchService } from '@/services/searchService';
+import { SearchInterface } from '@/components/search/SearchInterface';
+import { SearchResults } from '@/components/search/SearchResults';
+// import { SearchResult } from '@/types/search';
 
 // Mock legal scenarios for integration testing
 const mockScenarios: LegalScenario[] = [
@@ -142,7 +147,7 @@ const mockEmbeddings = {
 // Integration Test Component that combines search interface and results
 const SearchFlowTestComponent: React.FC = () => {
   const [query, setQuery] = React.useState('');
-  const [searchResponse, setSearchResponse] = React.useState(null);
+  const [searchResponse, setSearchResponse] = React.useState<SearchResponse | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   
   const searchService = React.useMemo(() => {
@@ -194,7 +199,7 @@ const SearchFlowTestComponent: React.FC = () => {
         placeholder="Search for legal rights and solutions..."
       />
       <SearchResults
-        searchResponse={searchResponse}
+        searchResponse={searchResponse || undefined}
         isLoading={isLoading}
         onResultClick={handleResultClick}
       />

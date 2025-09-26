@@ -18,10 +18,8 @@ import { SourceValidator } from '@/services/sourceValidator';
 import {
   ContentConfig,
   ContentFilter,
-  ValidationResult,
   ContentStatistics
 } from '@/types/content';
-import { LegalScenario } from '@/types';
 
 // Mock file system operations for testing
 const mockFileSystem = {

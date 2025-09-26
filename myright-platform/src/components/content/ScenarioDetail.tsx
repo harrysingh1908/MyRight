@@ -30,7 +30,7 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
   onSourceClick,
   showRelatedScenarios = false,
   relatedScenarios = [],
-  mode = 'full',
+  mode: _mode = 'full',
   className,
   testId,
   'aria-label': ariaLabel,

@@ -121,7 +121,9 @@ export default function Home() {
 
   const handleResultClick = useCallback(async (scenario: LegalScenario, position: number) => {
     // Handle result click - could navigate to detail page or show modal
-    console.log('Clicked scenario:', scenario.id, 'at position:', position);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Clicked scenario:', scenario.id, 'at position:', position);
+    }
     // For now, just log - in a full app this would navigate to a detail page
   }, []);
 
@@ -232,7 +234,7 @@ export default function Home() {
                     Select a category above or describe your situation to get started.
                   </p>
                   <div className="text-sm text-gray-500 dark:text-gray-500">
-                    💡 Try searching for "unpaid wages", "tenant rights", or "workplace harassment"
+                    💡 Try searching for &ldquo;unpaid wages&rdquo;, &ldquo;tenant rights&rdquo;, or &ldquo;workplace harassment&rdquo;
                   </div>
                 </div>
               </div>

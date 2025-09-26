@@ -19,8 +19,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   onResultClick,
   onLoadMore,
   hasMore = false,
-  pageSize = 10,
-  currentPage = 1,
+  pageSize: _pageSize = 10,
+  currentPage: _currentPage = 1,
   className,
   testId,
   'aria-label': ariaLabel,
@@ -124,7 +124,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
         <div className="text-sm text-gray-600">
           <span className="font-medium">{totalMatches} result{totalMatches !== 1 ? 's' : ''} found</span>
           {query && (
-            <span> for "<span className="font-medium text-gray-900">{query}</span>"</span>
+            <span> for &ldquo;<span className="font-medium text-gray-900">{query}</span>&rdquo;</span>
           )}
           {searchTime && (
             <span className="text-gray-500"> ({searchTime}ms)</span>

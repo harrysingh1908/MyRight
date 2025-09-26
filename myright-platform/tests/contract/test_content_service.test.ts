@@ -17,7 +17,6 @@ import { SourceValidator } from '@/services/sourceValidator';
 import {
   ContentConfig,
   ContentFilter,
-  ValidationResult,
   ContentStatistics,
   ContentBatch,
   ContentBatchResult
@@ -233,7 +232,7 @@ describe('ContentService Contract', () => {
       const filter: ContentFilter = {
         category: 'employment',
         validationStatus: 'valid',
-        severities: ['medium']
+        severity: ['medium']
       };
       
       const scenarios = await contentService.getScenarios(filter);

@@ -22,7 +22,7 @@ export const SearchInterface: React.FC<SearchInterfaceProps> = ({
   showAutocomplete = false,
   suggestions = [],
   filters,
-  onFiltersChange,
+  onFiltersChange: _onFiltersChange,
   showFilters = false,
   className,
   testId,
