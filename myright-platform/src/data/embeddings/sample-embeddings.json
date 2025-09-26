@@ -1,0 +1,76 @@
+{
+  "embeddings": [
+    {
+      "scenarioId": "salary-unpaid-employment",
+      "vectors": {
+        "title": {
+          "vector": [0.1234, -0.5678, 0.9012, -0.3456, 0.7890],
+          "source": "title",
+          "text": "Employer Not Paying Salary or Wages"
+        },
+        "description": {
+          "vector": [0.2345, -0.6789, 0.0123, -0.4567, 0.8901],
+          "source": "description", 
+          "text": "When your employer refuses to pay your salary, wages, or withholds payment without valid reason"
+        },
+        "combined": {
+          "vector": [0.1789, -0.6234, 0.4567, -0.4012, 0.8345],
+          "source": "combined",
+          "text": "Employer Not Paying Salary or Wages - When your employer refuses to pay your salary, wages, or withholds payment without valid reason, you have legal rights to recover your dues and take action for non-payment."
+        },
+        "keywords": {
+          "vector": [0.3456, -0.7890, 0.1234, -0.5678, 0.9012],
+          "source": "keywords",
+          "text": "salary not paid wages withheld employer not paying wage theft salary delay unpaid salary payment of wages act labor complaint wage recovery"
+        }
+      },
+      "variations": [
+        {
+          "text": "My company is not paying my salary for the last 3 months",
+          "vector": [0.4567, -0.8901, 0.2345, -0.6789, 0.0123]
+        },
+        {
+          "text": "Employer refuses to pay overtime wages", 
+          "vector": [0.5678, -0.9012, 0.3456, -0.7890, 0.1234]
+        },
+        {
+          "text": "Boss is holding my salary without reason",
+          "vector": [0.6789, -0.0123, 0.4567, -0.8901, 0.2345]
+        },
+        {
+          "text": "How to recover unpaid wages from previous employer",
+          "vector": [0.7890, -0.1234, 0.5678, -0.9012, 0.3456]
+        },
+        {
+          "text": "Company closed without paying final salary",
+          "vector": [0.8901, -0.2345, 0.6789, -0.0123, 0.4567]
+        }
+      ],
+      "createdAt": "2024-01-15T10:30:00Z",
+      "model": "sentence-transformers/all-MiniLM-L6-v2", 
+      "modelVersion": "2.2.2",
+      "dimension": 384
+    }
+  ],
+  "metadata": {
+    "totalEmbeddings": 1,
+    "totalVariations": 5,
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "modelVersion": "2.2.2",
+    "dimension": 384,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "lastUpdated": "2024-01-15T10:30:00Z",
+    "notes": [
+      "This is sample embedding data with truncated vectors for demonstration",
+      "Production embeddings will have 384-dimensional vectors",
+      "Vectors shown here are shortened to 5 dimensions for readability"
+    ]
+  },
+  "config": {
+    "embeddingModel": "sentence-transformers/all-MiniLM-L6-v2",
+    "maxSequenceLength": 512,
+    "normalizeEmbeddings": true,
+    "batchSize": 32,
+    "deviceType": "cpu"
+  }
+}

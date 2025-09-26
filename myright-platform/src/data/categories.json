@@ -1,0 +1,206 @@
+{
+  "categories": [
+    {
+      "id": "employment",
+      "name": "Employment & Labor Rights",
+      "description": "Rights related to workplace issues, salary, harassment, termination, and labor disputes",
+      "icon": "💼",
+      "color": "#3b82f6",
+      "scenarioCount": 4,
+      "subcategories": [
+        {
+          "id": "wages-salary",
+          "name": "Wages & Salary Issues",
+          "description": "Non-payment, delayed payment, and wage-related disputes",
+          "scenarioCount": 2,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "workplace-rights",
+          "name": "Workplace Rights & Safety",
+          "description": "Harassment, discrimination, and workplace safety issues",
+          "scenarioCount": 1,
+          "sortOrder": 2,
+          "isActive": true
+        },
+        {
+          "id": "termination",
+          "name": "Termination & Layoffs",
+          "description": "Wrongful termination, layoffs, and severance issues",
+          "scenarioCount": 1,
+          "sortOrder": 3,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 1,
+      "isActive": true,
+      "slug": "employment",
+      "keywords": [
+        "job", "work", "salary", "wages", "employer", "employee", 
+        "workplace", "harassment", "termination", "labor", "overtime"
+      ],
+      "relatedCategories": ["digital", "consumer"]
+    },
+    {
+      "id": "housing",
+      "name": "Housing & Property Rights",
+      "description": "Rights related to rental disputes, property issues, and housing problems",
+      "icon": "🏠",
+      "color": "#10b981",
+      "scenarioCount": 2,
+      "subcategories": [
+        {
+          "id": "rental-disputes",
+          "name": "Rental & Tenancy Issues",
+          "description": "Security deposit, rent increases, and landlord disputes",
+          "scenarioCount": 1,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "property-rights",
+          "name": "Property Rights",
+          "description": "Property ownership, documentation, and legal issues",
+          "scenarioCount": 1,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 2,
+      "isActive": true,
+      "slug": "housing",
+      "keywords": [
+        "house", "rent", "landlord", "tenant", "property", "security deposit",
+        "eviction", "lease", "housing", "accommodation"
+      ],
+      "relatedCategories": ["consumer", "family"]
+    },
+    {
+      "id": "consumer",
+      "name": "Consumer Rights & Protection",
+      "description": "Rights related to defective products, fraud, and consumer protection",
+      "icon": "🛒",
+      "color": "#f59e0b",
+      "scenarioCount": 2,
+      "subcategories": [
+        {
+          "id": "product-issues",
+          "name": "Product Quality Issues",
+          "description": "Defective products, warranty claims, and product liability",
+          "scenarioCount": 1,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "service-issues",
+          "name": "Service Quality Issues",
+          "description": "Poor service, medical negligence, and service provider disputes",
+          "scenarioCount": 1,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 3,
+      "isActive": true,
+      "slug": "consumer",
+      "keywords": [
+        "consumer", "product", "defective", "warranty", "refund", 
+        "fraud", "scam", "service", "complaint", "protection"
+      ],
+      "relatedCategories": ["digital", "employment"]
+    },
+    {
+      "id": "police",
+      "name": "Police & Law Enforcement",
+      "description": "Rights related to police interactions, complaints, and law enforcement issues",
+      "icon": "👮",
+      "color": "#dc2626",
+      "scenarioCount": 1,
+      "subcategories": [
+        {
+          "id": "police-misconduct",
+          "name": "Police Misconduct",
+          "description": "Bribery, harassment, and abuse by police officers",
+          "scenarioCount": 1,
+          "sortOrder": 1,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 4,
+      "isActive": true,
+      "slug": "police",
+      "keywords": [
+        "police", "cop", "bribery", "harassment", "abuse", "complaint",
+        "FIR", "arrest", "custody", "rights", "law enforcement"
+      ],
+      "relatedCategories": ["family", "employment"]
+    },
+    {
+      "id": "digital",
+      "name": "Digital Rights & Cyber Issues",
+      "description": "Rights related to online fraud, digital payments, and cyber crimes",
+      "icon": "💻",
+      "color": "#8b5cf6",
+      "scenarioCount": 2,
+      "subcategories": [
+        {
+          "id": "online-fraud",
+          "name": "Online Fraud & Scams",
+          "description": "Online shopping fraud, payment fraud, and cyber scams",
+          "scenarioCount": 1,
+          "sortOrder": 1,
+          "isActive": true
+        },
+        {
+          "id": "banking-digital",
+          "name": "Digital Banking Issues",
+          "description": "Banking fraud, UPI issues, and digital payment problems",
+          "scenarioCount": 1,
+          "sortOrder": 2,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 5,
+      "isActive": true,
+      "slug": "digital",
+      "keywords": [
+        "online", "internet", "fraud", "cyber", "digital", "banking",
+        "UPI", "payment", "hacking", "scam", "website", "app"
+      ],
+      "relatedCategories": ["consumer", "police"]
+    },
+    {
+      "id": "family",
+      "name": "Family & Personal Rights",
+      "description": "Rights related to family disputes, domestic violence, and personal issues",
+      "icon": "👨‍👩‍👧‍👦",
+      "color": "#ec4899",
+      "scenarioCount": 1,
+      "subcategories": [
+        {
+          "id": "domestic-violence",
+          "name": "Domestic Violence",
+          "description": "Protection from domestic violence and abuse",
+          "scenarioCount": 1,
+          "sortOrder": 1,
+          "isActive": true
+        }
+      ],
+      "sortOrder": 6,
+      "isActive": true,
+      "slug": "family",
+      "keywords": [
+        "family", "domestic", "violence", "abuse", "marriage", "divorce",
+        "children", "protection", "harassment", "safety"
+      ],
+      "relatedCategories": ["police", "housing"]
+    }
+  ],
+  "metadata": {
+    "totalCategories": 6,
+    "totalScenarios": 12,
+    "lastUpdated": "2024-01-15",
+    "version": "1.0.0"
+  }
+}

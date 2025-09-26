@@ -1,0 +1,219 @@
+{
+  "id": "salary-unpaid-employment",
+  "title": "Employer Not Paying Salary or Wages",
+  "description": "When your employer refuses to pay your salary, wages, or withholds payment without valid reason, you have legal rights to recover your dues and take action for non-payment.",
+  "category": "employment",
+  "rights": [
+    {
+      "id": "right-to-wages",
+      "title": "Right to Timely Payment of Wages",
+      "description": "Every worker has the fundamental right to receive their wages on time as agreed in their employment contract or as per legal requirements.",
+      "legalBasis": {
+        "law": "Payment of Wages Act, 1936",
+        "section": "Section 5",
+        "url": "https://labour.gov.in/sites/default/files/ThePaymentofWagesAct1936.pdf"
+      },
+      "application": "Applies to all employees earning up to ₹24,000 per month. Wages must be paid before the 7th of the following month for monthly paid employees.",
+      "limitations": [
+        "Only applies to employees earning below ₹24,000 per month",
+        "Does not cover contract workers in some cases"
+      ]
+    },
+    {
+      "id": "right-to-complaint",
+      "title": "Right to File Complaint for Non-Payment",
+      "description": "You can file a formal complaint with labor authorities if wages are not paid within the legal timeframe.",
+      "legalBasis": {
+        "law": "Payment of Wages Act, 1936",
+        "section": "Section 15",
+        "url": "https://labour.gov.in/sites/default/files/ThePaymentofWagesAct1936.pdf"
+      },
+      "application": "File complaint within 6 months of wage being due. Authority can order payment with compensation.",
+      "examples": [
+        "Filing complaint with District Labor Officer",
+        "Approaching Labor Court for wage recovery"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Document Your Employment and Wage Details",
+      "description": "Gather all employment-related documents including appointment letter, salary slips, bank statements, and any communication about wages.",
+      "type": "documentation",
+      "difficulty": "easy",
+      "timeEstimate": "1-2 hours",
+      "cost": "free",
+      "documentsNeeded": [
+        "Employment contract or appointment letter",
+        "Previous salary slips",
+        "Bank statements showing previous wage payments",
+        "Email or written communication about salary",
+        "Attendance records if available"
+      ],
+      "warnings": [
+        "Keep original documents safe - submit only photocopies for complaints"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Send Written Notice to Employer",
+      "description": "Send a formal written notice to your employer demanding payment of due wages within a reasonable time (typically 15 days).",
+      "type": "negotiation",
+      "difficulty": "easy",
+      "timeEstimate": "30 minutes",
+      "cost": "free",
+      "documentsNeeded": [
+        "Draft notice letter",
+        "Proof of delivery (registered post receipt or email delivery confirmation)"
+      ],
+      "contacts": [
+        {
+          "name": "India Post",
+          "type": "government",
+          "phones": ["1800-11-2011"],
+          "website": "https://www.indiapost.gov.in",
+          "hours": "Monday to Saturday 9 AM to 5 PM"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "File Complaint with Labor Inspector/Officer",
+      "description": "If employer doesn't respond to notice, file formal complaint with District Labor Officer or Inspector under Payment of Wages Act.",
+      "type": "complaint",
+      "difficulty": "medium",
+      "timeEstimate": "2-3 hours",
+      "cost": "free",
+      "documentsNeeded": [
+        "Complaint application (Form A)",
+        "Copy of employment contract",
+        "Salary slips or wage records",
+        "Copy of notice sent to employer",
+        "Identity proof and address proof"
+      ],
+      "contacts": [
+        {
+          "name": "District Labor Office",
+          "type": "government",
+          "address": "Contact your district labor office",
+          "website": "https://labour.gov.in/contact-us-state-wise-labour-offices",
+          "hours": "Monday to Friday 9 AM to 5 PM"
+        }
+      ],
+      "resources": [
+        {
+          "title": "Payment of Wages Act Complaint Form",
+          "url": "https://labour.gov.in/sites/default/files/forms_0.pdf",
+          "type": "form",
+          "description": "Official form for filing wage complaint",
+          "isFree": true,
+          "languages": ["English", "Hindi"]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Attend Conciliation Proceedings",
+      "description": "Participate in conciliation meetings arranged by labor authorities to resolve the dispute amicably.",
+      "type": "legal",
+      "difficulty": "medium",
+      "timeEstimate": "Half day",
+      "cost": "free",
+      "prerequisites": [3],
+      "warnings": [
+        "Bring all original documents to the hearing",
+        "Consider bringing a witness if available"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Approach Labor Court if Conciliation Fails",
+      "description": "If conciliation doesn't work, the case will be referred to Labor Court where binding decision will be made.",
+      "type": "legal",
+      "difficulty": "hard",
+      "timeEstimate": "3-6 months",
+      "cost": "medium",
+      "prerequisites": [4],
+      "contacts": [
+        {
+          "name": "Legal Aid Services",
+          "type": "legal_aid",
+          "phones": ["15100"],
+          "website": "https://nalsa.gov.in/",
+          "available24x7": false,
+          "languages": ["English", "Hindi", "Local languages"]
+        }
+      ],
+      "warnings": [
+        "Court proceedings can be lengthy",
+        "Consider legal representation for complex cases"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "payment-wages-act",
+      "title": "The Payment of Wages Act, 1936",
+      "authority": "Ministry of Labour and Employment, Government of India",
+      "url": "https://labour.gov.in/sites/default/files/ThePaymentofWagesAct1936.pdf",
+      "type": "law",
+      "publishedDate": "1936-12-23",
+      "lastVerified": "2024-01-15",
+      "status": "active",
+      "excerpt": "An Act to ensure the payment of wages to certain classes of persons employed in industry."
+    },
+    {
+      "id": "labour-ministry-guidelines",
+      "title": "Guidelines on Payment of Wages",
+      "authority": "Ministry of Labour and Employment",
+      "url": "https://labour.gov.in/whatsnew/guidelines-payment-wages",
+      "type": "guideline",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    }
+  ],
+  "relatedScenarios": [
+    "workplace-harassment-employment",
+    "wrongful-termination-employment",
+    "overtime-payment-employment"
+  ],
+  "keywords": [
+    "salary not paid",
+    "wages withheld",
+    "employer not paying",
+    "wage theft",
+    "salary delay",
+    "unpaid salary",
+    "payment of wages act",
+    "labor complaint",
+    "wage recovery"
+  ],
+  "variations": [
+    "My company is not paying my salary for the last 3 months",
+    "Employer refuses to pay overtime wages",
+    "Boss is holding my salary without reason",
+    "How to recover unpaid wages from previous employer",
+    "Company closed without paying final salary",
+    "Salary has been pending for 2 months",
+    "What to do when employer doesn't pay on time",
+    "Legal action for non-payment of salary",
+    "Rights when salary is delayed by company",
+    "Filing complaint for unpaid wages"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "high",
+  "timeSensitivity": {
+    "urgent": true,
+    "deadline": "6 months from wage due date",
+    "description": "Complaint must be filed within 6 months of wage being due as per Payment of Wages Act"
+  }
+}
