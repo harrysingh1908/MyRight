@@ -1,0 +1,158 @@
+{
+  "id": "defective-product-refund",
+  "title": "Defective Product and Refund Rights",
+  "description": "When you purchase a product that is defective, damaged, or not as described, you have consumer rights to get a refund, replacement, or compensation.",
+  "category": "consumer",
+  "rights": [
+    {
+      "id": "replacement-refund-right",
+      "title": "Right to Replacement or Refund",
+      "description": "Consumers have the right to seek replacement or refund for defective goods within the warranty period.",
+      "legalBasis": {
+        "law": "Consumer Protection Act, 2019",
+        "section": "Section 2(7) and Section 18",
+        "url": "https://www.indiacode.nic.in/handle/123456789/15000"
+      },
+      "application": "Applies to all consumer goods purchased for personal use. Consumer can demand replacement within 30 days or refund within 7 days.",
+      "limitations": [
+        "Product must be defective at time of sale",
+        "Damage due to misuse not covered"
+      ]
+    },
+    {
+      "id": "compensation-right",
+      "title": "Right to Compensation for Deficiency",
+      "description": "Right to seek compensation for loss or injury caused by defective products or deficient services.",
+      "legalBasis": {
+        "law": "Consumer Protection Act, 2019",
+        "section": "Section 84",
+        "url": "https://www.indiacode.nic.in/handle/123456789/15000"
+      },
+      "application": "Can claim compensation up to ₹1 crore in District Consumer Commission, higher amounts in State/National commissions.",
+      "examples": [
+        "Medical expenses due to defective product",
+        "Loss of income due to product failure"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Document the Defect",
+      "description": "Take photos/videos of the defective product and gather all purchase-related documents.",
+      "type": "documentation",
+      "difficulty": "easy",
+      "timeEstimate": "30 minutes",
+      "cost": "free",
+      "documentsNeeded": [
+        "Purchase receipt/invoice",
+        "Warranty card",
+        "Photos/videos of defect",
+        "Packaging if available"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Contact the Seller/Manufacturer",
+      "description": "First approach the seller or manufacturer directly for replacement or refund before legal action.",
+      "type": "communication",
+      "difficulty": "easy",
+      "timeEstimate": "1-2 days",
+      "cost": "free",
+      "prerequisites": [1],
+      "tips": [
+        "Keep records of all communication",
+        "Give reasonable time for response (7-15 days)"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Send Legal Notice",
+      "description": "If seller refuses, send a legal notice demanding replacement/refund within specified time.",
+      "type": "legal",
+      "difficulty": "medium",
+      "timeEstimate": "1-2 weeks",
+      "cost": "₹500-2000",
+      "prerequisites": [2],
+      "resources": [
+        {
+          "title": "Consumer Legal Notice Template",
+          "type": "template",
+          "description": "Standard format for consumer complaints"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "File Consumer Complaint",
+      "description": "File complaint with appropriate Consumer Commission if seller doesn't respond to legal notice.",
+      "type": "legal",
+      "difficulty": "medium",
+      "timeEstimate": "3-6 months",
+      "cost": "₹100-5000",
+      "prerequisites": [3],
+      "contacts": [
+        {
+          "name": "District Consumer Commission",
+          "type": "quasi_judicial",
+          "description": "For claims up to ₹1 crore",
+          "website": "https://consumerhelpline.gov.in/"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "name": "National Consumer Helpline",
+      "type": "helpline",
+      "phones": ["1915"],
+      "description": "24x7 consumer grievance helpline",
+      "available24x7": true,
+      "isFree": true,
+      "website": "https://consumerhelpline.gov.in/"
+    },
+    {
+      "name": "Consumer Online Resource and Empowerment Centre",
+      "type": "portal",
+      "website": "https://core.nic.in/",
+      "description": "Online consumer complaint portal"
+    }
+  ],
+  "keywords": [
+    "defective product",
+    "product refund",
+    "consumer rights",
+    "replacement",
+    "warranty claim",
+    "consumer complaint",
+    "product liability",
+    "consumer protection",
+    "faulty goods"
+  ],
+  "variations": [
+    "Purchased phone is not working properly",
+    "How to return defective appliance",
+    "Seller refusing to replace broken item",
+    "Consumer rights for online purchases",
+    "Filing complaint against retailer",
+    "Warranty claim rejected unfairly",
+    "Product different from advertisement",
+    "Getting refund for damaged goods",
+    "Consumer court complaint procedure"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "medium",
+  "timeSensitivity": {
+    "urgent": false,
+    "deadline": "Within warranty period or 2 years from purchase",
+    "description": "Consumer complaints should be filed within 2 years of cause of action"
+  }
+}

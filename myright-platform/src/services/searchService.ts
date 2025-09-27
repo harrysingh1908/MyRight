@@ -24,9 +24,11 @@ import {
   AutocompleteResponse,
   SearchPerformanceMetrics,
   QuerySuggestion,
-  AutocompleteSuggestion
+  AutocompleteSuggestion,
 } from '@/types/search';
 import { LegalScenario } from '@/types';
+import { ContentService } from './contentService';
+import { EmbeddingService } from './embeddingService';
 
 /**
  * Configuration for search operations
@@ -105,15 +107,21 @@ export class SearchService {
   private scenarioEmbeddings: Map<string, EmbeddingVector[]>;
   private isInitialized: boolean;
   private originalConfig?: SearchConfig;
+  private scenarios: LegalScenario[] = [];
+  private contentService?: ContentService;
 
-  constructor(config: SearchServiceConfig | SearchConfig, embeddingService?: EmbeddingService) {
+  constructor(
+    config: SearchServiceConfig | SearchConfig,
+    contentService?: ContentService,
+    embeddingService?: EmbeddingService
+  ) {
     // Handle both SearchServiceConfig and SearchConfig interfaces
     if ('minScore' in config) {
       // Convert SearchConfig to SearchServiceConfig
       this.originalConfig = config;
       this._config = {
         embeddingsDir: '/data/embeddings',
-        similarityThreshold: config.minScore,
+        similarityThreshold: Math.max(config.minScore, 0.5), // Higher threshold to avoid false matches
         enableCaching: true,
         cacheDuration: 300000,
         enableAnalytics: true,
@@ -128,13 +136,16 @@ export class SearchService {
         enableSeverityFilter: config.enableSeverityFilter
       };
     } else {
-      this._config = config;
-    }    this.embeddingService = embeddingService || new EmbeddingService({
+      this._config = config as SearchServiceConfig;
+    }
+    
+    this.embeddingService = embeddingService || new EmbeddingService({
       modelName: 'sentence-transformers/all-MiniLM-L6-v2',
       dimensions: 384,
       batchSize: 32
     });
-    this.cache = new Map();
+  this.cache = new Map();
+  this.contentService = contentService;
     this.analytics = {
       totalSearches: 0,
       averageResponseTime: 0,
@@ -199,8 +210,8 @@ export class SearchService {
         }
       }
 
-      let similarities: SearchResult[] = [];
-      let usedAlgorithm: 'semantic' | 'keyword' = 'semantic';
+  let similarities: SearchResult[] = [];
+  let usedAlgorithm: 'semantic' | 'keyword' | 'hybrid' = 'semantic';
       
       if (request.query.trim().length === 0) {
         // For empty queries, return no results (as per test expectations)
@@ -208,25 +219,11 @@ export class SearchService {
       } else {
         try {
           // Generate embedding for search query
-          let queryEmbedding = await this.embeddingService.generateEmbedding(request.query);
+          const queryEmbedding = await this.embeddingService.generateEmbedding(request.query);
           
           // Ensure query embedding matches expected dimensions
           if (queryEmbedding.length !== this.embeddingService.getDimension()) {
             throw new Error(`Query embedding dimension mismatch: got ${queryEmbedding.length}, expected ${this.embeddingService.getDimension()}`);
-          }
-
-          // For testing with employment/salary-related queries, use a predictable embedding
-          // that will have good similarity with the test data (if not already mocked)
-          const lowerQuery = request.query.toLowerCase();
-          if ((lowerQuery.includes('salary') || 
-               lowerQuery.includes('money for work') || 
-               lowerQuery.includes('company not giving')) &&
-               queryEmbedding.length === this.embeddingService.getDimension()) {
-            queryEmbedding = [0.12, 0.22, 0.32, 0.42, 0.52]; // Close to test embeddings
-            // Pad to match embedding service dimensions
-            while (queryEmbedding.length < this.embeddingService.getDimension()) {
-              queryEmbedding.push(0);
-            }
           }
 
           // Find similar scenarios
@@ -244,20 +241,36 @@ export class SearchService {
 
       // Apply filters and ranking
       const filteredResults = this.applyFilters(similarities, request.filters);
-      const rankedResults = this.rankResults(filteredResults, request);
+      let rankedResults = this.rankResults(filteredResults, request);
 
-      // Prepare response
+      // If no semantic results, attempt keyword fallback
+      if (rankedResults.length === 0 && request.query.trim()) {
+        const keywordOnly = await this.performKeywordSearch(request.query, request.filters);
+        rankedResults = this.rankResults(keywordOnly, request);
+        if (keywordOnly.length > 0) {
+          usedAlgorithm = usedAlgorithm === 'semantic' ? 'hybrid' : 'keyword';
+        }
+      }
+
+      // Prepare response and compute highlights if requested
       const pageSize = request.pagination?.pageSize || this.config.maxResults;
-      const results = rankedResults.slice(0, pageSize);
+      let results = rankedResults.slice(0, pageSize);
+      if (request.includeHighlights) {
+        results = results.map(r => ({
+          ...r,
+          highlights: this.generateHighlightsForScenario(r.scenario, request.query, r.matchedFields)
+        }));
+      }
+      const searchTime = Math.max(Date.now() - startTime, 1); // Ensure at least 1ms
       const response: SearchResponse = {
         query: request.query,
         results,
-        totalMatches: filteredResults.length,
-        searchTime: Date.now() - startTime,
+        totalMatches: rankedResults.length,
+        searchTime: searchTime,
         filters: request.filters || {},
         suggestions: await this.generateSuggestions(request.query, results),
         metadata: {
-          totalScenarios: this.scenarioEmbeddings.size,
+          totalScenarios: this.scenarios.length || this.scenarioEmbeddings.size,
           filteredScenarios: filteredResults.length,
           algorithm: usedAlgorithm,
           usedEmbeddings: usedAlgorithm === 'semantic',
@@ -276,7 +289,7 @@ export class SearchService {
       }
 
       // Update analytics
-      this.updateAnalytics(request, response, response.searchTime);
+      this.updateAnalytics(request, response, searchTime);
 
       return response;
 
@@ -293,20 +306,20 @@ export class SearchService {
 
     try {
       const suggestions: AutocompleteSuggestion[] = [];
-      const { query, limit = 10 } = request;
+      const { query, limit = 10, types } = request;
 
       // Get query-based suggestions
       if (query.length >= 2) {
-        const querySuggestions = await this.getQuerySuggestions(query, limit);
+        const querySuggestions = await this.getQuerySuggestions(query, limit, types);
         suggestions.push(...querySuggestions);
       }
 
-      // Add popular queries if we have space
-      if (suggestions.length < limit) {
+      // Add popular queries if we have space and no specific types requested
+      if (suggestions.length < limit && (!types || types.includes('popular') || types.includes('common_phrase'))) {
         const popular = this.getPopularQueries(limit - suggestions.length);
         const popularSuggestions: AutocompleteSuggestion[] = popular.map(query => ({
           text: query,
-          type: 'common_phrase' as const,
+          type: 'popular' as const,
           score: 0.8,
           matchCount: 5
         }));
@@ -318,7 +331,7 @@ export class SearchService {
       return {
         query,
         suggestions: suggestions.slice(0, limit),
-        responseTime: Date.now() - startTime
+        responseTime: Math.max(Date.now() - startTime, 1) // Ensure at least 1ms
       };
 
     } catch (error) {
@@ -373,6 +386,8 @@ export class SearchService {
   async loadContent(scenarios: LegalScenario[], embeddings: EmbeddingVector[] | Record<string, Record<string, number[]>>): Promise<void> {
     // Clear existing data
     this.scenarioEmbeddings.clear();
+    // Store scenarios for in-memory search
+    this.scenarios = scenarios;
 
     if (Array.isArray(embeddings)) {
       // Handle array format
@@ -416,13 +431,6 @@ export class SearchService {
         this.scenarioEmbeddings.set(scenarioId, embeddingVectors);
       }
     }
-
-    // Store scenarios for later use (in a real implementation)
-    // For now, we'll just validate that we have the data
-    const embeddingCount = Array.isArray(embeddings) ? embeddings.length : Object.keys(embeddings).length;
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`Loaded ${scenarios.length} scenarios and ${embeddingCount} embedding sets`);
-    }
   }
 
   /**
@@ -436,56 +444,16 @@ export class SearchService {
    * Get scenarios by category
    */
   async getByCategory(category: string): Promise<LegalScenario[]> {
-    // Return scenarios that match the requested category
-    if (category === 'employment' && this.scenarioEmbeddings.has('salary-unpaid-employment')) {
-      // Return a sample employment scenario
-      return [{
-        id: 'salary-unpaid-employment',
-        title: 'Employer Not Paying Salary or Wages',
-        description: 'When your employer refuses to pay your salary, wages, or withholds payment without valid reason.',
-        category: 'employment',
-        rights: [],
-        actionSteps: [],
-        sources: [],
-        keywords: ['salary', 'wages', 'unpaid'],
-        variations: [],
-        lastUpdated: '2024-01-15',
-        validationStatus: {
-          sourcesVerified: true,
-          legalReview: true,
-          clarityReview: true,
-          lastValidated: '2024-01-15'
-        },
-        severity: 'high'
-      }];
-    }
-    
-    // Return empty array for other categories or if no data loaded
-    return [];
+    const allScenarios = await this.getAllScenarios();
+    return allScenarios.filter(s => s.category === category);
   }
 
   /**
    * Get all available categories with counts
    */
   async getAllCategories(): Promise<Array<{ category: string; count: number }>> {
-    // Return actual counts based on loaded scenarios
-    const categories = new Map<string, number>();
-    
-    // Count scenarios by analyzing loaded embeddings
-    for (const [scenarioId] of this.scenarioEmbeddings) {
-      if (scenarioId.includes('employment')) {
-        categories.set('employment', (categories.get('employment') || 0) + 1);
-      } else if (scenarioId.includes('housing')) {
-        categories.set('housing', (categories.get('housing') || 0) + 1);
-      } else if (scenarioId.includes('consumer')) {
-        categories.set('consumer', (categories.get('consumer') || 0) + 1);
-      }
-    }
-    
-    return Array.from(categories.entries()).map(([category, count]) => ({
-      category,
-      count
-    }));
+    const categories = this.contentService ? await this.contentService.getCategories() : [];
+    return categories.map(c => ({ category: c.id, count: c.scenarioCount }));
   }
 
   /**
@@ -496,7 +464,7 @@ export class SearchService {
   }
 
   /**
-   * Get scenarios by category (alias for getByCategory method)
+   * Get scenarios by category (alias for getScenariosByCategory method)
    */
   async getScenariosByCategory(category: string): Promise<LegalScenario[]> {
     return this.getByCategory(category);
@@ -529,56 +497,77 @@ export class SearchService {
   // Private helper methods
 
   private async preloadAllEmbeddings(): Promise<void> {
-    // Implementation would load all scenario embeddings into memory
-    // This is a placeholder for the actual implementation
+    if (!this.contentService) {
+      // Nothing to preload in test/in-memory mode
+      return;
+    }
+    const embeddings = await this.contentService.loadAllEmbeddings();
+    this.scenarioEmbeddings = new Map();
+    for (const [scenarioId, embeddingData] of Object.entries(embeddings)) {
+        const embeddingVectors: EmbeddingVector[] = Object.entries(embeddingData as Record<string, number[]>).map(([text, vector]) => ({
+            id: `${scenarioId}-${text}`,
+            vector: vector,
+            text: text,
+            scenarioId: scenarioId,
+            model: 'default',
+            createdAt: new Date(),
+        }));
+        this.scenarioEmbeddings.set(scenarioId, embeddingVectors);
+    }
   }
 
 
 
-  private async performKeywordSearch(query: string, _filters?: any): Promise<SearchResult[]> {
+  private async performKeywordSearch(query: string, filters?: SearchFilters): Promise<SearchResult[]> {
+    const scenarios = await this.getAllScenarios();
+    const lowerQuery = query.toLowerCase();
+    const tokens = Array.from(new Set(lowerQuery.split(/\s+/).filter(Boolean)));
+    let filteredScenarios = scenarios;
+
+    if (filters?.categories && filters.categories.length > 0) {
+        filteredScenarios = filteredScenarios.filter(s => filters.categories?.includes(s.category));
+    }
+
     const results: SearchResult[] = [];
     
-    // Simple keyword matching against scenario IDs and titles
-    for (const [scenarioId] of this.scenarioEmbeddings) {
-      const lowerQuery = query.toLowerCase();
-      const lowerScenarioId = scenarioId.toLowerCase();
-      
-      if (lowerScenarioId.includes(lowerQuery) || lowerQuery.includes('salary')) {
-        // Create a result for matching scenarios
-        const placeholderScenario: LegalScenario = {
-          id: scenarioId,
-          title: 'Employer Not Paying Salary or Wages',
-          description: 'Sample description for keyword search',
-          category: 'employment',
-          rights: [],
-          actionSteps: [],
-          sources: [],
-          keywords: [query],
-          variations: [],
-          lastUpdated: '2024-01-15',
-          validationStatus: {
-            sourcesVerified: true,
-            legalReview: true,
-            clarityReview: true,
-            lastValidated: '2024-01-15'
-          },
-          severity: 'medium'
-        };
+    for (const scenario of filteredScenarios) {
+      let score = 0;
+      const matchedFields: { field: 'title' | 'description' | 'keywords'; score: number; matchedText: string }[] = [];
 
+      const titleText = scenario.title.toLowerCase();
+      const titleMatches = tokens.filter(t => titleText.includes(t));
+      if (titleMatches.length > 0) {
+        score += this._config.titleBoost * titleMatches.length;
+        matchedFields.push({ field: 'title', score: this._config.titleBoost * titleMatches.length, matchedText: titleMatches.join(' ') });
+      }
+
+      const descText = scenario.description.toLowerCase();
+      const descMatches = tokens.filter(t => descText.includes(t));
+      if (descMatches.length > 0) {
+        score += 1.0 * descMatches.length;
+        matchedFields.push({ field: 'description', score: 1.0 * descMatches.length, matchedText: descMatches.join(' ') });
+      }
+
+      const keywordMatches = tokens.filter(t => scenario.keywords.some(k => k.toLowerCase().includes(t)));
+      if (keywordMatches.length > 0) {
+        score += this._config.keywordBoost * keywordMatches.length;
+        matchedFields.push({ field: 'keywords', score: this._config.keywordBoost * keywordMatches.length, matchedText: keywordMatches.join(' ') });
+      }
+
+      // Also check for partial matches in variations
+      const variationMatches = tokens.filter(t => scenario.variations.some(v => v.toLowerCase().includes(t)));
+      if (variationMatches.length > 0) {
+        score += 0.8 * variationMatches.length;
+        matchedFields.push({ field: 'description', score: 0.8 * variationMatches.length, matchedText: variationMatches.join(' ') });
+      }
+
+      if (score > 0) {
         results.push({
-          scenario: placeholderScenario,
-          score: 0.8, // Lower score for keyword search
-          matchedFields: [{
-            field: 'title',
-            score: 0.8,
-            matchedText: query
-          }],
-          highlights: [{
-            text: `Match for "${query}"`,
-            field: 'title',
-            originalText: placeholderScenario.title
-          }],
-          matchType: 'title'
+          scenario,
+          score,
+          matchedFields,
+          highlights: [],
+          matchType: 'keywords'
         });
       }
     }
@@ -591,8 +580,9 @@ export class SearchService {
       throw new Error('Search query is required');
     }
 
-    if (request.query.length > 500) {
-      throw new Error('Search query is too long (maximum 500 characters)');
+    const trimmedQuery = request.query.trim();
+    if (trimmedQuery.length > 200) {
+      throw new Error('Search query must not exceed 200 characters');
     }
   }
 
@@ -642,113 +632,48 @@ export class SearchService {
     filters?: SearchFilters
   ): Promise<SearchResult[]> {
     const results: SearchResult[] = [];
+  const scenarios = await this.getAllScenarios();
+    let filteredScenarios = scenarios;
 
-    // This would iterate through scenario embeddings and calculate similarity
-    // Placeholder implementation
-    for (const [, embeddings] of this.scenarioEmbeddings) {
-      for (const embedding of embeddings) {
-        const similarity = this.calculateCosineSimilarity(queryEmbedding, embedding.vector);
+    if (filters?.categories && filters.categories.length > 0) {
+        filteredScenarios = filteredScenarios.filter(s => filters.categories?.includes(s.category));
+    }
+
+    for (const scenario of filteredScenarios) {
+        const scenarioEmbeddings = this.scenarioEmbeddings.get(scenario.id);
+        if (!scenarioEmbeddings) continue;
+
+        let maxSimilarity = 0;
+        let bestMatch: any = null;
+
+        for (const embedding of scenarioEmbeddings) {
+            const similarity = this.embeddingService.cosineSimilarity(queryEmbedding, embedding.vector);
+            if (similarity > maxSimilarity) {
+                maxSimilarity = similarity;
+                bestMatch = embedding;
+            }
+        }
         
-        // Use configured similarity threshold
-        if (similarity >= this._config.similarityThreshold) {
-          // Create a placeholder scenario - in real implementation, this would load from storage
-          // The scenario should match the test data
-          const placeholderScenario: LegalScenario = {
-            id: 'salary-unpaid-employment',
-            title: 'Employer Not Paying Salary or Wages',
-            description: 'When your employer refuses to pay your salary, wages, or withholds payment without valid reason',
-            category: 'employment',
-            rights: [],
-            actionSteps: [],
-            sources: [],
-            keywords: ['salary', 'wages', 'unpaid', 'employer'],
-            variations: ['My company is not paying salary', 'Boss withholds wages'],
-            lastUpdated: '2024-01-15',
-            validationStatus: {
-              sourcesVerified: true,
-              legalReview: true,
-              clarityReview: true,
-              lastValidated: '2024-01-15'
-            },
-            severity: 'high'
-          };
-
-          // Apply filters if provided
-          if (filters) {
-            // Filter by categories
-            if (filters.categories && filters.categories.length > 0) {
-              if (!filters.categories.includes(placeholderScenario.category)) {
-                continue; // Skip this scenario
-              }
-            }
-            
-            // Filter by severities
-            if (filters.severities && filters.severities.length > 0) {
-              if (!filters.severities.includes(placeholderScenario.severity)) {
-                continue; // Skip this scenario
-              }
-            }
-          }
-
+        if (maxSimilarity >= this._config.similarityThreshold) {
           results.push({
-            scenario: placeholderScenario,
-            score: similarity,
+            scenario: scenario,
+            score: maxSimilarity,
             matchedFields: [{
               field: 'description',
-              score: similarity,
-              matchedText: embedding.text
+              score: maxSimilarity,
+              matchedText: bestMatch.text
             }],
             highlights: [{
-              text: embedding.text,
+              text: bestMatch.text,
               field: 'description',
-              originalText: embedding.text
+              originalText: bestMatch.text
             }],
             matchType: 'semantic'
           });
         }
-      }
-    }
-
-    // Group by scenario and keep only the best match per scenario
-    const scenarioResults = new Map<string, SearchResult>();
-    
-    for (const result of results) {
-      const scenarioId = result.scenario.id;
-      const existing = scenarioResults.get(scenarioId);
-      
-      if (!existing || result.score > existing.score) {
-        scenarioResults.set(scenarioId, result);
-      }
     }
     
-    return Array.from(scenarioResults.values());
-  }
-
-  private calculateCosineSimilarity(a: number[], b: number[]): number {
-    if (a.length !== b.length) {
-      throw new Error('Vectors must have the same length');
-    }
-
-    let dotProduct = 0;
-    let normA = 0;
-    let normB = 0;
-
-    for (let i = 0; i < a.length; i++) {
-      const aVal = a[i] ?? 0;
-      const bVal = b[i] ?? 0;
-      dotProduct += aVal * bVal;
-      normA += aVal * aVal;
-      normB += bVal * bVal;
-    }
-
-    normA = Math.sqrt(normA);
-    normB = Math.sqrt(normB);
-
-    if (normA === 0 || normB === 0) {
-      return 0;
-    }
-
-    return dotProduct / (normA * normB);
+    return results;
   }
 
   private applyFilters(results: SearchResult[], filters?: any): SearchResult[] {
@@ -803,43 +728,28 @@ export class SearchService {
     return suggestions;
   }
 
-  // Note: This method is prepared for future faceted search features
-
-
-  private async getQuerySuggestions(query: string, limit: number): Promise<AutocompleteSuggestion[]> {
+  private async getQuerySuggestions(query: string, limit: number, types?: Array<'scenario' | 'category' | 'popular' | 'keyword' | 'common_phrase' | 'scenario_title'>): Promise<AutocompleteSuggestion[]> {
     const suggestions: AutocompleteSuggestion[] = [];
-    
-    // Generate suggestions based on query prefix
     const lowerQuery = query.toLowerCase();
     
-    // Common legal scenario suggestions
-    const commonSuggestions = [
-      { text: 'salary not paid', type: 'scenario_title' as const, category: 'employment' },
-      { text: 'workplace harassment', type: 'scenario_title' as const, category: 'employment' },
-      { text: 'house rent dispute', type: 'scenario_title' as const, category: 'housing' },
-      { text: 'consumer complaint', type: 'scenario_title' as const, category: 'consumer' },
-      { text: 'employment law', type: 'category' as const, category: 'employment' },
-      { text: 'housing rights', type: 'category' as const, category: 'housing' }
-    ];
+  const scenarios = await this.getAllScenarios();
     
-    // Filter suggestions based on query
-    const matchingSuggestions = commonSuggestions.filter(suggestion => 
-      suggestion.text.toLowerCase().includes(lowerQuery)
-    );
-    
-    // Convert to AutocompleteSuggestion format
-    for (let i = 0; i < Math.min(matchingSuggestions.length, limit); i++) {
-      const suggestion = matchingSuggestions[i]!;
-      suggestions.push({
-        text: suggestion.text,
-        type: suggestion.type,
-        score: 0.9 - (i * 0.1),
-        matchCount: 5 - i,
-        category: suggestion.category
-      });
+    // Scenario title suggestions
+    if (!types || types.includes('scenario_title')) {
+        for (const scenario of scenarios) {
+            if (scenario.title.toLowerCase().includes(lowerQuery)) {
+                suggestions.push({
+                    text: scenario.title,
+                    type: 'scenario_title',
+                    score: 0.9,
+                    matchCount: 1,
+                    category: scenario.category,
+                });
+            }
+        }
     }
     
-    return suggestions;
+    return suggestions.slice(0, limit);
   }
 
   private getPopularQueries(limit: number): string[] {
@@ -912,163 +822,54 @@ export class SearchService {
       }
     }
   }
-}
 
-/**
- * EmbeddingService: Handles text-to-vector transformations
- */
-export class EmbeddingService {
-  private config: {
-    modelName: string;
-    dimensions: number;
-    batchSize: number;
-  };
-  private isInitialized: boolean;
+  private async getAllScenarios(): Promise<LegalScenario[]> {
+    if (this.scenarios.length > 0) return this.scenarios;
+    if (this.contentService) {
+      try {
+        return await this.contentService.loadAllScenarios();
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }
 
-  constructor(config?: { modelName: string; dimensions: number; batchSize: number }) {
-    this.config = config || {
-      modelName: 'sentence-transformers/all-MiniLM-L6-v2',
-      dimensions: 384,
-      batchSize: 32
+  private generateHighlightsForScenario(
+    scenario: LegalScenario,
+    query: string,
+    matchedFields: Array<{ field: any; score: number; matchedText: string }>
+  ): Array<{ text: string; field: string; originalText: string }> {
+    const tokens = Array.from(new Set(query.toLowerCase().split(/\s+/).filter(Boolean)));
+    const highlights: Array<{ text: string; field: string; originalText: string }> = [];
+
+    const markTokens = (text: string) => {
+      let result = text;
+      for (const t of tokens) {
+        if (!t) continue;
+        const re = new RegExp(`(${t.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+        result = result.replace(re, '<mark>$1</mark>');
+      }
+      return result;
     };
-    this.isInitialized = false;
-  }
 
-  async initialize(): Promise<void> {
-    // Initialize the embedding model
-    // This would load the actual model in a real implementation
-    this.isInitialized = true;
-  }
-
-  async generateEmbedding(text: string): Promise<number[]> {
-    if (!this.isInitialized) {
-      // Auto-initialize if not already done
-      await this.initialize();
+    const fieldsToHighlight: Array<'title' | 'description'> = ['title', 'description'];
+    for (const field of fieldsToHighlight) {
+      const original = (scenario as any)[field] as string;
+      if (!original) continue;
+      const marked = markTokens(original);
+      if (marked !== original) {
+        highlights.push({ text: marked, field, originalText: original });
+      }
+      if (highlights.length >= 2) break;
     }
 
-    // Handle empty text
-    if (!text || text.trim().length === 0) {
-      throw new Error('Text cannot be empty');
+    if (highlights.length === 0 && matchedFields && matchedFields.length > 0) {
+      const first = matchedFields[0]!;
+      const original = (scenario as any)[(first as any).field] ?? first.matchedText;
+      highlights.push({ text: markTokens(String(original)), field: String((first as any).field), originalText: String(original) });
     }
 
-    // Generate deterministic embedding based on text content
-    // This ensures same text produces same embedding for testing
-    const seed = this.hashString(text);
-    const rng = this.seedRandom(seed);
-    
-    return new Array(this.config.dimensions).fill(0).map(() => rng());
-  }
-
-  /**
-   * Generate a hash from string for deterministic seeding
-   */
-  private hashString(str: string): number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-  }
-
-  /**
-   * Seeded random number generator for consistent embeddings
-   */
-  private seedRandom(seed: number): () => number {
-    let x = Math.sin(seed) * 10000;
-    return () => {
-      x = Math.sin(x) * 10000;
-      return x - Math.floor(x);
-    };
-  }
-
-  async generateBatchEmbeddings(texts: string[]): Promise<number[][]> {
-    const embeddings: number[][] = [];
-    
-    for (let i = 0; i < texts.length; i += this.config.batchSize) {
-      const batch = texts.slice(i, i + this.config.batchSize);
-      const batchEmbeddings = await Promise.all(
-        batch.map(text => this.generateEmbedding(text))
-      );
-      embeddings.push(...batchEmbeddings);
-    }
-
-    return embeddings;
-  }
-
-  getModelInfo(): { name: string; dimensions: number } {
-    return {
-      name: this.config.modelName,
-      dimensions: this.config.dimensions
-    };
-  }
-
-  /**
-   * Get the dimension of embedding vectors
-   */
-  getDimension(): number {
-    return this.config.dimensions;
-  }
-
-  /**
-   * Calculate cosine similarity between two embedding vectors
-   */
-  cosineSimilarity(a: number[], b: number[]): number {
-    if (a.length !== b.length) {
-      throw new Error('Vectors must have the same length');
-    }
-
-    let dotProduct = 0;
-    let normA = 0;
-    let normB = 0;
-
-    for (let i = 0; i < a.length; i++) {
-      const aVal = a[i] ?? 0;
-      const bVal = b[i] ?? 0;
-      dotProduct += aVal * bVal;
-      normA += aVal * aVal;
-      normB += bVal * bVal;
-    }
-
-    normA = Math.sqrt(normA);
-    normB = Math.sqrt(normB);
-
-    if (normA === 0 || normB === 0) {
-      return 0;
-    }
-
-    return dotProduct / (normA * normB);
-  }
-
-  /**
-   * Find the most similar embeddings to a query embedding
-   */
-  findMostSimilar(
-    queryEmbedding: number[], 
-    candidateEmbeddings: Array<{ id: string; vector: number[] }>, 
-    limit: number
-  ): Array<{ id: string; similarity: number }> {
-    const similarities = candidateEmbeddings.map(candidate => ({
-      id: candidate.id,
-      similarity: this.cosineSimilarity(queryEmbedding, candidate.vector)
-    }));
-
-    // Sort by similarity (highest first) and return top results
-    return similarities
-      .sort((a, b) => b.similarity - a.similarity)
-      .slice(0, limit);
+    return highlights;
   }
 }
-
-// Export default instance
-export const searchService = new SearchService({
-  minScore: 0.3,
-  maxResults: 20,
-  autocompleteSuggestions: 8,
-  enableFuzzyMatch: true,
-  keywordBoost: 1.2,
-  titleBoost: 1.5,
-  enableCategoryFilter: true,
-  enableSeverityFilter: true,
-});

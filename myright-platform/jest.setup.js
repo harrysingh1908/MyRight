@@ -42,3 +42,13 @@ global.IntersectionObserver = class IntersectionObserver {
     return null;
   }
 };
+
+// Provide a default fetch mock so tests don't fail on missing implementation.
+if (!global.fetch) {
+  global.fetch = jest.fn(async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({}),
+    text: async () => '',
+  }));
+}

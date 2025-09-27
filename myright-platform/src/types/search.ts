@@ -196,7 +196,7 @@ export interface AutocompleteSuggestion {
   text: string;
   
   /** Type of suggestion */
-  type: 'scenario_title' | 'category' | 'keyword' | 'common_phrase';
+  type: 'scenario' | 'category' | 'popular' | 'keyword' | 'common_phrase' | 'scenario_title';
   
   /** Relevance score for ordering */
   score: number;
@@ -248,7 +248,7 @@ export interface AutocompleteRequest {
   limit?: number;
   
   /** Types of suggestions to include */
-  types?: Array<'scenario_title' | 'category' | 'keyword' | 'common_phrase'>;
+  types?: Array<'scenario' | 'category' | 'popular' | 'keyword' | 'common_phrase' | 'scenario_title'>;
   
   /** Filter suggestions by category */
   category?: string;

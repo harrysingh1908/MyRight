@@ -1,0 +1,150 @@
+{
+  "id": "online-fraud-unauthorized-transactions",
+  "title": "Online Fraud and Unauthorized Transactions",
+  "description": "When you become victim of online fraud, unauthorized bank transactions, or digital payment scams",
+  "category": "consumer",
+  "severity": "high",
+  "rights": [
+    {
+      "id": "right-to-zero-liability",
+      "title": "Right to Zero Liability Protection",
+      "description": "Right to protection from liability for unauthorized electronic transactions if reported promptly",
+      "legalBasis": "RBI Guidelines on Customer Liability",
+      "section": "Circular RBI/2017-18/15"
+    },
+    {
+      "id": "right-to-dispute-resolution",
+      "title": "Right to Dispute Resolution",
+      "description": "Right to raise disputes and get resolution for fraudulent transactions through banking ombudsman",
+      "legalBasis": "Banking Ombudsman Scheme, 2006",
+      "section": "Clause 8"
+    },
+    {
+      "id": "right-to-compensation",
+      "title": "Right to Compensation for Bank Negligence",
+      "description": "Right to compensation if unauthorized transaction occurred due to bank's system deficiency",
+      "legalBasis": "RBI Master Direction on Digital Payment Security",
+      "section": "Section 4.2"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Immediately Block Cards/Accounts",
+      "description": "Immediately contact bank to block debit/credit cards and freeze accounts to prevent further fraud",
+      "order": 1,
+      "timeframe": "immediately within hours",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "15-30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-2", 
+      "title": "File FIR with Police",
+      "description": "Lodge FIR at nearest police station or cyber crime cell with all transaction details",
+      "order": 2,
+      "timeframe": "within 24 hours",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-3",
+      "title": "Report to Bank in Writing",
+      "description": "Submit written complaint to bank with FIR copy and transaction details for investigation",
+      "order": 3,
+      "timeframe": "within 3 days",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "1-2 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-4",
+      "title": "Report to Cyber Crime Portal",
+      "description": "File complaint on National Cyber Crime Reporting Portal (cybercrime.gov.in)",
+      "order": 4,
+      "timeframe": "within 7 days",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-5",
+      "title": "Approach Banking Ombudsman",
+      "description": "If bank doesn't resolve within 30 days, file complaint with Banking Ombudsman",
+      "order": 5,
+      "timeframe": "after 30 days if unresolved",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "free"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-rbi-customer-liability",
+      "title": "RBI Guidelines on Customer Liability for Unauthorized Transactions", 
+      "authority": "Reserve Bank of India",
+      "url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11040",
+      "type": "regulation",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-banking-ombudsman-scheme",
+      "title": "Banking Ombudsman Scheme, 2006",
+      "authority": "Reserve Bank of India",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/Banking_Ombudsman.aspx",
+      "type": "scheme",
+      "lastVerified": "2024-01-15", 
+      "status": "active"
+    },
+    {
+      "id": "source-it-act-cybercrime",
+      "title": "Information Technology Act, 2000 - Cyber Crime Provisions",
+      "authority": "Ministry of Electronics and IT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1999",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-cyber-crime-portal",
+      "title": "National Cyber Crime Reporting Portal",
+      "authority": "Ministry of Home Affairs",
+      "url": "https://cybercrime.gov.in",
+      "type": "portal",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    }
+  ],
+  "keywords": ["online fraud", "cyber crime", "unauthorized transaction", "digital payment", "bank fraud", "phishing", "UPI fraud", "card cloning"],
+  "variations": [
+    "Money debited from account without my knowledge",
+    "Received fake payment link and lost money",
+    "Someone used my card details online",
+    "UPI transaction I didn't make",
+    "Bank account hacked, money transferred",
+    "Phishing scam, card details compromised"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager", 
+    "version": "1.0",
+    "tags": ["cyber-crime", "online-fraud", "banking", "digital-payments", "consumer-protection"],
+    "difficulty": "intermediate",
+    "estimatedReadingTime": "6 minutes"
+  }
+}

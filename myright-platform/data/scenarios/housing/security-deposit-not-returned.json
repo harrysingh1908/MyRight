@@ -1,0 +1,130 @@
+{
+  "id": "security-deposit-not-returned",
+  "title": "Landlord Not Returning Security Deposit",
+  "description": "When your landlord refuses to return security deposit after you vacate the rental property or makes unreasonable deductions",
+  "category": "housing",
+  "severity": "medium", 
+  "rights": [
+    {
+      "id": "right-to-deposit-return",
+      "title": "Right to Return of Security Deposit",
+      "description": "Tenants have the right to get back their security deposit after vacating, minus legitimate deductions",
+      "legalBasis": "Indian Contract Act, 1872",
+      "section": "Section 124 (Bailment)"
+    },
+    {
+      "id": "right-to-itemized-deductions",
+      "title": "Right to Detailed Account of Deductions",
+      "description": "Right to receive itemized list of any deductions from security deposit with supporting evidence",
+      "legalBasis": "State Rent Control Acts",
+      "section": "Varies by State"
+    },
+    {
+      "id": "right-to-interest",
+      "title": "Right to Interest on Deposit",
+      "description": "In some states, tenants have right to interest on security deposit held for extended periods",
+      "legalBasis": "State-specific Rent Control Laws", 
+      "section": "Varies by State"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Gather Deposit Documentation",
+      "description": "Collect receipt of security deposit payment, rental agreement, and move-in/move-out inspection reports",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-2",
+      "title": "Send Formal Demand Letter",
+      "description": "Send written demand for return of security deposit with supporting documents",
+      "order": 2,
+      "timeframe": "within 15 days of vacating",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "1-2 hours",
+      "cost": "₹100-300"
+    },
+    {
+      "id": "step-3",
+      "title": "Send Legal Notice",
+      "description": "If landlord doesn't respond, send legal notice through lawyer demanding deposit return",
+      "order": 3,
+      "timeframe": "within 30 days",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "₹1,500-4,000"
+    },
+    {
+      "id": "step-4",
+      "title": "File Small Cause Court Case", 
+      "description": "File suit in small cause court or consumer court for recovery of deposit with damages",
+      "order": 4,
+      "timeframe": "within 60 days",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "1 day",
+      "cost": "₹3,000-8,000"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-contract-act-bailment",
+      "title": "Indian Contract Act, 1872 - Bailment",
+      "authority": "Legislative Department, Ministry of Law and Justice",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2187",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-consumer-protection-act",
+      "title": "Consumer Protection Act, 2019",
+      "authority": "Department of Consumer Affairs",
+      "url": "https://consumeraffairs.nic.in/sites/default/files/CP%20Act%202019.pdf",
+      "type": "law",
+      "lastVerified": "2024-01-15", 
+      "status": "active"
+    },
+    {
+      "id": "source-deposit-guidelines",
+      "title": "Security Deposit Guidelines for Landlords",
+      "authority": "Real Estate Regulatory Authority (RERA)",
+      "url": "https://rera.gov.in/deposit-guidelines",
+      "type": "guideline",
+      "lastVerified": "2024-01-10",
+      "status": "active"
+    }
+  ],
+  "keywords": ["security deposit", "advance", "refund", "landlord", "tenant", "rental", "deposit recovery", "deduction", "vacate"],
+  "variations": [
+    "Landlord not returning my advance money",
+    "Owner keeping security deposit unfairly",
+    "Can't get back rental deposit",
+    "Landlord making false deductions from deposit",
+    "Not getting advance back after vacating",
+    "Security money not refunded by owner"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team", 
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager",
+    "version": "1.0",
+    "tags": ["housing", "deposit", "refund", "rental-law", "consumer-rights"],
+    "difficulty": "beginner",
+    "estimatedReadingTime": "4 minutes"
+  }
+}

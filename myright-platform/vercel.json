@@ -1,14 +1,8 @@
 {
-  "name": "myright-platform",
   "version": 2,
   "build": {
     "env": {
       "NODE_ENV": "production"
-    }
-  },
-  "functions": {
-    "app/api/**/*.ts": {
-      "runtime": "@vercel/node"
     }
   },
   "headers": [

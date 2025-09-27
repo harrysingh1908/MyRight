@@ -1,0 +1,130 @@
+{
+  "id": "workplace-harassment-discrimination",
+  "title": "Workplace Harassment or Discrimination",
+  "description": "When you face harassment, discrimination, or hostile work environment based on gender, caste, religion, or other protected characteristics",
+  "category": "employment",
+  "severity": "high",
+  "rights": [
+    {
+      "id": "right-to-dignity",
+      "title": "Right to Work with Dignity",
+      "description": "Every employee has the right to work in an environment free from harassment and discrimination",
+      "legalBasis": "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+      "section": "Section 3"
+    },
+    {
+      "id": "right-to-complaint",
+      "title": "Right to File Internal Complaint",
+      "description": "Right to file a complaint with Internal Complaints Committee (ICC) or Local Complaints Committee (LCC)",
+      "legalBasis": "Sexual Harassment Act, 2013",
+      "section": "Section 9"
+    },
+    {
+      "id": "right-to-protection",
+      "title": "Right to Protection from Retaliation",
+      "description": "Protection from victimization or discharge from employment for filing complaints",
+      "legalBasis": "Sexual Harassment Act, 2013", 
+      "section": "Section 16"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Document All Incidents",
+      "description": "Keep detailed records of harassment incidents including dates, times, witnesses, and evidence like messages or emails",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "1-2 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-2",
+      "title": "Check Company Policy",
+      "description": "Review your company's anti-harassment policy and procedures for filing complaints",
+      "order": 2,
+      "timeframe": "within 2 days", 
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-3",
+      "title": "File Internal Complaint",
+      "description": "Submit written complaint to Internal Complaints Committee (ICC) or HR department",
+      "order": 3,
+      "timeframe": "within 3 months of incident",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-4", 
+      "title": "File External Complaint if Needed",
+      "description": "If no ICC exists or complaint not addressed, file with Local Complaints Committee or police",
+      "order": 4,
+      "timeframe": "if internal complaint fails",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "4-6 hours",
+      "cost": "₹100-500"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-posh-act",
+      "title": "Sexual Harassment of Women at Workplace Act, 2013",
+      "authority": "Ministry of Women and Child Development",
+      "url": "https://wcd.nic.in/act/sexual-harassment-women-workplace-prevention-prohibition-and-redressal-act-2013",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-constitution-equality",
+      "title": "Constitution of India - Right to Equality",
+      "authority": "Government of India",
+      "url": "https://www.india.gov.in/my-government/constitution-india/constitution-india-full-text",
+      "type": "constitutional-provision",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-ipc-harassment",
+      "title": "Indian Penal Code - Sections on Harassment",
+      "authority": "Ministry of Home Affairs",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2263",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    }
+  ],
+  "keywords": ["harassment", "discrimination", "workplace", "sexual harassment", "hostile environment", "dignity", "equality", "caste", "gender", "religion"],
+  "variations": [
+    "Boss is harassing me at work",
+    "Facing sexual harassment at office",
+    "Discrimination due to gender/caste/religion",
+    "Hostile work environment",
+    "Inappropriate behavior by colleague",
+    "Manager making inappropriate comments"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager",
+    "version": "1.0",
+    "tags": ["employment", "harassment", "discrimination", "workplace-safety", "women-rights"],
+    "difficulty": "intermediate",
+    "estimatedReadingTime": "6 minutes"
+  }
+}

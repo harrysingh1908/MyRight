@@ -1,0 +1,166 @@
+{
+  "id": "child-custody-rights",
+  "title": "Child Custody Rights During Divorce",
+  "description": "Understanding your rights regarding child custody, visitation, and maintenance during divorce proceedings under Indian family law.",
+  "category": "family",
+  "rights": [
+    {
+      "id": "natural-guardian-rights",
+      "title": "Natural Guardian Rights",
+      "description": "Both parents have equal rights as natural guardians of their children under Indian law.",
+      "legalBasis": {
+        "law": "Hindu Minority and Guardianship Act, 1956",
+        "section": "Section 6",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1367"
+      },
+      "application": "Father is natural guardian of children above 5 years, mother for children below 5 years. Court can modify based on child's welfare.",
+      "limitations": [
+        "Applies primarily to Hindu families",
+        "Other personal laws may have different provisions"
+      ]
+    },
+    {
+      "id": "child-welfare-principle",
+      "title": "Best Interest of Child Principle",
+      "description": "Courts prioritize child's welfare over parental rights in custody decisions.",
+      "legalBasis": {
+        "law": "Guardians and Wards Act, 1890",
+        "section": "Section 17",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1390"
+      },
+      "application": "Court considers child's emotional, physical, educational needs and stability when awarding custody.",
+      "examples": [
+        "Child's preference (if mature enough)",
+        "Financial stability of parents",
+        "Home environment and support system"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Understand Different Types of Custody",
+      "description": "Learn about physical custody, legal custody, joint custody, and visitation rights available under law.",
+      "type": "research",
+      "difficulty": "medium",
+      "timeEstimate": "2-3 hours",
+      "cost": "free",
+      "resources": [
+        {
+          "title": "Family Court Custody Guidelines",
+          "type": "guide",
+          "description": "Understanding custody arrangements"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Gather Evidence of Parenting Capability",
+      "description": "Document your involvement in child's daily life, education, healthcare, and emotional support.",
+      "type": "documentation",
+      "difficulty": "medium",
+      "timeEstimate": "1-2 weeks",
+      "cost": "free",
+      "documentsNeeded": [
+        "School records showing your involvement",
+        "Medical records with your participation",
+        "Photos/videos with child",
+        "Character certificates from teachers/neighbors"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Attempt Mediation",
+      "description": "Try to reach an amicable custody arrangement through family counseling or mediation before court.",
+      "type": "mediation",
+      "difficulty": "medium",
+      "timeEstimate": "2-4 weeks",
+      "cost": "₹2000-10000",
+      "prerequisites": [1],
+      "contacts": [
+        {
+          "name": "Family Counseling Centers",
+          "type": "mediation",
+          "description": "Court-annexed or private mediation services"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "File Custody Petition in Family Court",
+      "description": "If mediation fails, file formal petition for child custody with supporting documents.",
+      "type": "legal",
+      "difficulty": "hard",
+      "timeEstimate": "6-18 months",
+      "cost": "₹10000-50000",
+      "prerequisites": [2, 3],
+      "contacts": [
+        {
+          "name": "Family Court",
+          "type": "court",
+          "description": "District Family Court having jurisdiction",
+          "website": "Check district court website"
+        },
+        {
+          "name": "Legal Aid Services",
+          "type": "legal_aid",
+          "phones": ["15100"],
+          "website": "https://nalsa.gov.in/"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Women and Child Helpline",
+      "type": "helpline",
+      "phones": ["181", "1098"],
+      "description": "For women and children in distress",
+      "available24x7": true,
+      "isFree": true
+    },
+    {
+      "name": "Family Counseling Centre",
+      "type": "counseling",
+      "description": "Psychological support during custody disputes",
+      "website": "Available at district level"
+    }
+  ],
+  "keywords": [
+    "child custody",
+    "custody rights",
+    "visitation rights",
+    "child maintenance",
+    "divorce custody",
+    "family court",
+    "guardian rights",
+    "child welfare",
+    "joint custody"
+  ],
+  "variations": [
+    "How to get custody of my child after divorce",
+    "Father's rights in child custody",
+    "Mother's custody rights",
+    "Can I get joint custody of children",
+    "Visitation rights for non-custodial parent",
+    "Changing custody arrangement",
+    "Child wants to live with other parent",
+    "Custody for unmarried parents",
+    "International child custody disputes"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "high",
+  "timeSensitivity": {
+    "urgent": true,
+    "deadline": "Should be addressed as part of divorce proceedings",
+    "description": "Child custody matters are time-sensitive and affect child's immediate welfare"
+  }
+}

@@ -100,12 +100,21 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
   return (
     <article
       className={cn('max-w-4xl mx-auto bg-white', className)}
-      data-testid={testId}
-      aria-label={ariaLabel || `Legal scenario: ${scenario.title}`}
+      data-testid={testId || (_mode === 'mobile' ? 'mobile-scenario-layout' : 'scenario-detail')}
+      aria-label={ariaLabel || (scenario ? `Legal scenario: ${scenario.title}` : 'Legal scenario')}
       aria-describedby={ariaDescribedBy}
       {...props}
     >
-      {/* Header */}
+      {!scenario ? (
+        <div data-testid="scenario-error" className="text-center p-8">
+          <h2 className="text-xl font-semibold text-red-600">Scenario not found</h2>
+          <p className="text-gray-600 mt-2">
+            The requested legal scenario could not be loaded. It may have been moved or deleted.
+          </p>
+        </div>
+  ) : (
+  <>
+  {/* Header */}
       <header className="mb-8">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
@@ -141,7 +150,10 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
 
         {/* Time sensitivity details */}
         {scenario.timeSensitivity && (
-          <div className="mt-4 p-4 bg-orange-50 border-l-4 border-orange-400 rounded-r-lg">
+          <div
+            className="mt-4 p-4 bg-orange-50 border-l-4 border-orange-400 rounded-r-lg"
+            role={scenario.timeSensitivity.urgent ? 'alert' : undefined}
+          >
             <div className="flex items-center mb-2">
               <Clock className="h-5 w-5 text-orange-600 mr-2" />
               <span className="font-medium text-orange-800">Time Sensitive</span>
@@ -164,7 +176,7 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
       <section className="mb-8">
         <button
           onClick={() => toggleSection('rights')}
-          className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+          className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200 min-h-11"
           aria-expanded={expandedSections.rights}
           aria-controls="rights-content"
         >
@@ -181,22 +193,26 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
         
         {expandedSections.rights && (
           <div id="rights-content" className="mt-4 space-y-4">
-            {scenario.rights.map((right, index) => (
-              <div key={right.id || index} className="bg-white border border-gray-200 rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {right.title}
-                </h3>
-                <p className="text-gray-700 mb-3">
-                  {right.description}
-                </p>
-                {right.legalBasis && (
-                  <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
-                    <strong>Legal Basis:</strong> {right.legalBasis.law}
-                    {right.legalBasis.section && `, ${right.legalBasis.section}`}
-                  </div>
-                )}
-              </div>
-            ))}
+            {scenario.rights.length > 0 ? (
+              scenario.rights.map((right, index) => (
+                <div key={right.id || index} className="bg-white border border-gray-200 rounded-lg p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    {right.title}
+                  </h3>
+                  <p className="text-gray-700 mb-3">
+                    {right.description}
+                  </p>
+                  {right.legalBasis && (
+                    <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                      <strong>Legal Basis:</strong> {right.legalBasis.law}
+                      {right.legalBasis.section && `, ${right.legalBasis.section}`}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 p-4">No legal rights information available for this scenario.</p>
+            )}
           </div>
         )}
       </section>
@@ -205,7 +221,7 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
       <section className="mb-8">
         <button
           onClick={() => toggleSection('actionSteps')}
-          className="flex items-center justify-between w-full p-4 text-left bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+          className="flex items-center justify-between w-full p-4 text-left bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 min-h-11"
           aria-expanded={expandedSections.actionSteps}
           aria-controls="actionsteps-content"
           aria-label={expandedSections.actionSteps ? 'Hide action steps' : 'Show action steps'}
@@ -224,58 +240,62 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
         {expandedSections.actionSteps && (
           <div id="actionsteps-content" className="mt-4">
             <div className="space-y-4">
-              {scenario.actionSteps
-                .sort((a, b) => a.order - b.order)
-                .map((step, index) => (
-                  <div 
-                    key={step.order || index}
-                    className={cn(
-                      'bg-white border border-gray-200 rounded-lg p-6 transition-all duration-200',
-                      onActionStepClick && 'cursor-pointer hover:shadow-md hover:border-gray-300'
-                    )}
-                    onClick={() => handleActionStepClick(step)}
-                    tabIndex={onActionStepClick ? 0 : undefined}
-                    role={onActionStepClick ? 'button' : undefined}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
-                        {step.order}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
-                          {step.title}
-                        </h3>
-                        <p className="text-gray-700 mb-4">
-                          {step.description}
-                        </p>
-                        
-                        {/* Step metadata */}
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          {step.difficulty && (
-                            <span className={cn(
-                              'px-2 py-1 rounded-full text-xs font-medium border',
-                              getDifficultyStyle(step.difficulty)
-                            )}>
-                              {step.difficulty}
-                            </span>
-                          )}
-                          {step.timeEstimate && (
-                            <span className="flex items-center">
-                              <Clock className="h-4 w-4 mr-1" />
-                              {step.timeEstimate}
-                            </span>
-                          )}
-                          {step.cost && (
-                            <span className="flex items-center">
-                              <DollarSign className="h-4 w-4 mr-1" />
-                              {step.cost}
-                            </span>
-                          )}
+              {scenario.actionSteps.length > 0 ? (
+                scenario.actionSteps
+                  .sort((a, b) => a.order - b.order)
+                  .map((step, index) => (
+                    <div 
+                      key={step.order || index}
+                      className={cn(
+                        'bg-white border border-gray-200 rounded-lg p-6 transition-all duration-200',
+                        onActionStepClick && 'cursor-pointer hover:shadow-md hover:border-gray-300'
+                      )}
+                      onClick={() => handleActionStepClick(step)}
+                      tabIndex={onActionStepClick ? 0 : undefined}
+                      role={onActionStepClick ? 'button' : undefined}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                          {step.order}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-2">
+                            {step.title}
+                          </h3>
+                          <p className="text-gray-700 mb-4">
+                            {step.description}
+                          </p>
+                          
+                          {/* Step metadata */}
+                          <div className="flex items-center gap-4 text-sm text-gray-600">
+                            {step.difficulty && (
+                              <span className={cn(
+                                'px-2 py-1 rounded-full text-xs font-medium border',
+                                getDifficultyStyle(step.difficulty)
+                              )}>
+                                {step.difficulty}
+                              </span>
+                            )}
+                            {step.timeEstimate && (
+                              <span className="flex items-center">
+                                <Clock className="h-4 w-4 mr-1" />
+                                {step.timeEstimate}
+                              </span>
+                            )}
+                            {step.cost && (
+                              <span className="flex items-center">
+                                <DollarSign className="h-4 w-4 mr-1" />
+                                {step.cost}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+              ) : (
+                <p className="text-gray-500 p-4">No action steps available for this scenario.</p>
+              )}
             </div>
           </div>
         )}
@@ -285,7 +305,7 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
       <section className="mb-8">
         <button
           onClick={() => toggleSection('sources')}
-          className="flex items-center justify-between w-full p-4 text-left bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors duration-200"
+          className="flex items-center justify-between w-full p-4 text-left bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors duration-200 min-h-11"
           aria-expanded={expandedSections.sources}
           aria-controls="sources-content"
         >
@@ -302,34 +322,38 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
         
         {expandedSections.sources && (
           <div id="sources-content" className="mt-4 space-y-3">
-            {scenario.sources.map((source, index) => (
-              <div key={source.id || index} className="bg-white border border-gray-200 rounded-lg p-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      {source.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {source.authority} • {source.type}
-                    </p>
-                    <div className="text-xs text-gray-500">
-                      Last verified: {source.lastVerified}
+            {scenario.sources.length > 0 ? (
+              scenario.sources.map((source, index) => (
+                <div key={source.id || index} className="bg-white border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900 mb-1">
+                        {source.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {source.authority} • {source.type}
+                      </p>
+                      <div className="text-xs text-gray-500">
+                        Last verified: {source.lastVerified}
+                      </div>
                     </div>
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => handleSourceClick(source.url, e)}
+                      className="flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors duration-200"
+                      aria-label={`Open ${source.title} in new tab`}
+                    >
+                      Visit Source
+                      <ExternalLink className="h-4 w-4 ml-1" />
+                    </a>
                   </div>
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => handleSourceClick(source.url, e)}
-                    className="flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors duration-200"
-                    aria-label={`Open ${source.title} in new tab`}
-                  >
-                    Visit Source
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-gray-500 p-4">No official sources available for this scenario.</p>
+            )}
           </div>
         )}
       </section>
@@ -339,7 +363,7 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
         <section className="mb-8">
           <button
             onClick={() => toggleSection('related')}
-            className="flex items-center justify-between w-full p-4 text-left bg-green-50 hover:bg-green-100 rounded-lg transition-colors duration-200"
+            className="flex items-center justify-between w-full p-4 text-left bg-green-50 hover:bg-green-100 rounded-lg transition-colors duration-200 min-h-11"
             aria-expanded={expandedSections.related}
             aria-controls="related-content"
           >
@@ -387,6 +411,8 @@ export const ScenarioDetail: React.FC<ScenarioDetailProps> = ({
           </div>
         </div>
       </footer>
+      </>
+      )}
     </article>
   );
 };

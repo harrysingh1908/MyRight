@@ -1,5 +1,15 @@
 /**
- * Integration Test: Search Flow
+ * Integration Tes      rights: [{
+        id: 'wage-payment-right',
+        title: 'Right to Timely Payment of Wages',
+        description: 'Every employee has the legal right to receive their wages on time',
+        legalBasis: {
+          law: 'Payment of Wages Act, 1936',
+          section: 'Section 5'
+        },
+        application: 'Applies to all employees',
+        actionSteps: []
+      }],Flow
  * 
  * Tests search functionality on the complete Home page
  */

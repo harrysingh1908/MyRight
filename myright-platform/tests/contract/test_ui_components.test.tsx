@@ -57,7 +57,8 @@ const mockScenario: LegalScenario = {
         law: 'Test Act, 2024',
         section: 'Section 1'
       },
-      application: 'Applies to all test cases'
+      application: 'Applies to all test cases',
+      actionSteps: []
     }
   ],
   actionSteps: [

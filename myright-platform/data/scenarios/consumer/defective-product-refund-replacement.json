@@ -1,0 +1,141 @@
+{
+  "id": "defective-product-refund-replacement",
+  "title": "Defective Product - Refund or Replacement",
+  "description": "When you purchase a product that is defective, damaged, or not as described and the seller refuses to provide refund or replacement",
+  "category": "consumer",
+  "severity": "medium",
+  "rights": [
+    {
+      "id": "right-to-refund-replacement",
+      "title": "Right to Refund or Replacement",
+      "description": "Consumers have the right to get refund or replacement for defective goods within reasonable time",
+      "legalBasis": "Consumer Protection Act, 2019",
+      "section": "Section 2(7) - Consumer Rights"
+    },
+    {
+      "id": "right-to-compensation",
+      "title": "Right to Compensation for Damages",
+      "description": "Right to claim compensation for any loss or damage caused by defective products",
+      "legalBasis": "Consumer Protection Act, 2019",
+      "section": "Section 2(1)(d) - Deficiency"
+    },
+    {
+      "id": "right-to-quality-goods",
+      "title": "Right to Quality Goods and Services",
+      "description": "Fundamental right to receive goods and services that meet quality standards",
+      "legalBasis": "Consumer Protection Act, 2019",
+      "section": "Section 2(7)(a)"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Preserve Purchase Documentation",
+      "description": "Keep safe the bill/invoice, warranty card, product packaging, and payment receipts",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "15 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-2",
+      "title": "Document Product Defects",
+      "description": "Take photographs/videos of the defective product and note down all issues clearly",
+      "order": 2,
+      "timeframe": "within 1-2 days",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-3",
+      "title": "Contact Seller for Resolution",
+      "description": "Approach the seller/retailer first for immediate refund or replacement",
+      "order": 3,
+      "timeframe": "within 7 days of purchase",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "1-2 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-4",
+      "title": "Escalate to Manufacturer if Needed",
+      "description": "If seller refuses, contact manufacturer's customer service for warranty claims",
+      "order": 4,
+      "timeframe": "within 15 days",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "communication charges"
+    },
+    {
+      "id": "step-5",
+      "title": "File Consumer Court Complaint",
+      "description": "File complaint with District Consumer Disputes Redressal Commission",
+      "order": 5,
+      "timeframe": "within 2 years of purchase",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "1 day",
+      "cost": "₹200-500"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-consumer-protection-act-2019",
+      "title": "Consumer Protection Act, 2019",
+      "authority": "Department of Consumer Affairs",
+      "url": "https://consumeraffairs.nic.in/sites/default/files/CP%20Act%202019.pdf",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-consumer-rights-guidelines",
+      "title": "Consumer Rights and Responsibilities Guidelines",
+      "authority": "National Consumer Helpline",
+      "url": "https://consumerhelpline.gov.in/consumer-rights",
+      "type": "guideline", 
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-sale-of-goods-act",
+      "title": "Sale of Goods Act, 1930",
+      "authority": "Legislative Department",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2275",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    }
+  ],
+  "keywords": ["defective", "product", "refund", "replacement", "warranty", "consumer", "damaged", "faulty", "return", "exchange"],
+  "variations": [
+    "Bought faulty product, seller refusing refund",
+    "Defective item purchased online",
+    "Product not working, want money back",
+    "Damaged goods received, need replacement",
+    "Seller not honoring warranty",
+    "Mobile/electronics not functioning properly"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert", 
+    "approvedBy": "content-manager",
+    "version": "1.0",
+    "tags": ["consumer-rights", "product-defects", "refund", "warranty", "online-shopping"],
+    "difficulty": "beginner",
+    "estimatedReadingTime": "5 minutes"
+  }
+}

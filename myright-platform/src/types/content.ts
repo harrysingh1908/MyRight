@@ -98,19 +98,51 @@ export interface ValidationResult {
   
   /** Next scheduled validation date */
   nextValidation?: string;
-  
-  /** Critical issues that must be fixed */
+
+  /** Critical issues found during validation */
   criticalIssues: ValidationIssue[];
-  
-  /** Warnings that should be addressed */
+
+  /** Warnings found during validation */
   warnings: ValidationIssue[];
-  
+
   /** Suggestions for improvement */
   suggestions: ValidationIssue[];
 }
 
 /**
- * Individual validation check result
+ * Configuration for the content service
+ */
+export interface ContentConfig {
+  /** Directory where scenario JSON files are stored */
+  scenariosDir: string;
+  
+  /** Directory where embedding files are stored */
+  embeddingsDir: string;
+  
+  /** Path to the categories JSON file */
+  categoriesFile: string;
+
+  /** Path to the validation rules file */
+  validationRules: string;
+
+  /** Supported file formats for content */
+  supportedFormats: string[];
+  
+  /** Whether to validate content when it's loaded */
+  validateOnLoad: boolean;
+  
+  /** Whether to preload all content on startup */
+  preloadContent: boolean;
+  
+  /** Enable content caching */
+  enableCaching: boolean;
+  
+  /** Cache duration in milliseconds */
+  cacheDuration: number;
+}
+
+/**
+ * A single validation check performed on content
  */
 export interface ValidationCheck {
   /** Name of the validation check */
@@ -194,32 +226,6 @@ export interface ContentStatistics {
   
   /** Last updated */
   lastUpdated: string;
-}
-
-/**
- * Content loading configuration
- */
-export interface ContentConfig {
-  /** Base directory for scenario files */
-  scenariosDir: string;
-  
-  /** Base directory for embedding files */
-  embeddingsDir: string;
-  
-  /** Supported file formats */
-  supportedFormats: string[];
-  
-  /** Whether to validate content on load */
-  validateOnLoad: boolean;
-  
-  /** Whether to enable caching */
-  enableCaching: boolean;
-  
-  /** Cache duration in milliseconds */
-  cacheDuration: number;
-  
-  /** Whether to preload all content */
-  preloadContent: boolean;
 }
 
 /**

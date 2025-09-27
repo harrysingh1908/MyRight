@@ -1,0 +1,161 @@
+{
+  "id": "data-privacy-breach",
+  "title": "Personal Data Privacy Breach and Protection",
+  "description": "When your personal data is misused, leaked, or collected without consent by companies or websites, you have rights under data protection laws.",
+  "category": "digital",
+  "rights": [
+    {
+      "id": "data-protection-right",
+      "title": "Right to Data Protection and Privacy",
+      "description": "Fundamental right to privacy includes protection of personal data from unauthorized access and misuse.",
+      "legalBasis": {
+        "law": "Right to Privacy (Supreme Court Judgment)",
+        "section": "Article 21",
+        "url": "https://indiankanoon.org/doc/91938676/"
+      },
+      "application": "All individuals have right to control how their personal data is collected, processed, and stored by organizations.",
+      "limitations": [
+        "Comprehensive data protection law still being implemented",
+        "Limited enforcement mechanisms currently available"
+      ]
+    },
+    {
+      "id": "consent-requirement",
+      "title": "Right to Informed Consent for Data Collection",
+      "description": "Organizations must obtain clear, informed consent before collecting or processing personal data.",
+      "legalBasis": {
+        "law": "Information Technology Act, 2000",
+        "section": "Section 43A and Rules",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+      },
+      "application": "Companies must inform users about data collection purposes and obtain explicit consent.",
+      "examples": [
+        "Cookie consent on websites",
+        "App permissions for accessing device data",
+        "Terms of service must be clear about data use"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Document the Privacy Breach",
+      "description": "Gather evidence of how your data was compromised, including screenshots, emails, or notifications.",
+      "type": "documentation",
+      "difficulty": "easy",
+      "timeEstimate": "1-2 hours",
+      "cost": "free",
+      "documentsNeeded": [
+        "Screenshots of unauthorized data access",
+        "Breach notification emails",
+        "Account statements showing suspicious activity",
+        "Privacy policy of the organization"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Report to the Organization",
+      "description": "Contact the company's data protection officer or customer service about the breach.",
+      "type": "communication",
+      "difficulty": "easy",
+      "timeEstimate": "1-3 days",
+      "cost": "free",
+      "prerequisites": [1],
+      "tips": [
+        "Request details about the breach",
+        "Ask what steps they're taking to prevent recurrence",
+        "Request deletion of your data if desired"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "File Complaint with CERT-In",
+      "description": "Report cyber security incidents including data breaches to Computer Emergency Response Team.",
+      "type": "complaint",
+      "difficulty": "medium",
+      "timeEstimate": "1 week",
+      "cost": "free",
+      "prerequisites": [2],
+      "contacts": [
+        {
+          "name": "CERT-In",
+          "type": "cyber_security",
+          "website": "https://www.cert-in.org.in/",
+          "email": "incident@cert-in.org.in",
+          "description": "National cyber security agency"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Approach Consumer Court for Compensation",
+      "description": "File complaint in consumer court if you suffered financial loss due to data breach negligence.",
+      "type": "legal",
+      "difficulty": "hard",
+      "timeEstimate": "6-12 months",
+      "cost": "₹500-5000",
+      "prerequisites": [3],
+      "contacts": [
+        {
+          "name": "District Consumer Commission",
+          "type": "quasi_judicial",
+          "description": "For compensation claims"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Cyber Crime Helpline",
+      "type": "helpline",
+      "phones": ["1930"],
+      "description": "National cyber crime reporting portal",
+      "available24x7": true,
+      "isFree": true,
+      "website": "https://cybercrime.gov.in/"
+    },
+    {
+      "name": "Data Security Council of India",
+      "type": "industry_body",
+      "website": "https://www.dsci.in/",
+      "description": "Industry guidance on data protection"
+    }
+  ],
+  "keywords": [
+    "data breach",
+    "privacy violation",
+    "personal data theft",
+    "cyber security",
+    "data protection",
+    "privacy rights",
+    "unauthorized access",
+    "data misuse",
+    "information security"
+  ],
+  "variations": [
+    "My personal data was leaked online",
+    "Company using my data without permission",
+    "How to report data privacy breach",
+    "Unauthorized access to my account information",
+    "App collecting data without consent",
+    "Website storing personal information illegally",
+    "Identity theft due to data breach",
+    "Company sold my personal information",
+    "Privacy policy violation by service provider"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "high",
+  "timeSensitivity": {
+    "urgent": true,
+    "deadline": "Report immediately upon discovery",
+    "description": "Data breaches should be reported promptly to minimize damage and preserve evidence"
+  }
+}

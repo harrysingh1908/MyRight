@@ -1,0 +1,141 @@
+{
+  "id": "landlord-illegal-eviction",
+  "title": "Landlord Trying to Evict Illegally",
+  "description": "When your landlord attempts to evict you without proper legal procedures, notice, or valid grounds",
+  "category": "housing", 
+  "severity": "high",
+  "rights": [
+    {
+      "id": "right-to-proper-notice",
+      "title": "Right to Adequate Notice Period",
+      "description": "Tenants have the right to receive proper written notice before eviction as per rental agreement or state law",
+      "legalBasis": "Rent Control Acts (State-specific)",
+      "section": "Varies by State"
+    },
+    {
+      "id": "right-to-due-process",
+      "title": "Right to Legal Due Process",
+      "description": "Landlords cannot forcibly evict tenants without court orders and proper legal procedures",
+      "legalBasis": "Transfer of Property Act, 1882",
+      "section": "Section 111"
+    },
+    {
+      "id": "right-to-peaceful-possession",
+      "title": "Right to Peaceful Possession",
+      "description": "Right to continue living in rented property until lawful eviction through proper channels",
+      "legalBasis": "Indian Contract Act, 1872",
+      "section": "Section 108"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Document All Communications",
+      "description": "Keep records of all notices, messages, and communications from landlord regarding eviction",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "30 minutes",
+      "cost": "free"
+    },
+    {
+      "id": "step-2",
+      "title": "Review Rental Agreement",
+      "description": "Examine lease agreement for eviction clauses, notice periods, and grounds for termination",
+      "order": 2,
+      "timeframe": "within 24 hours",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "1 hour",
+      "cost": "free"
+    },
+    {
+      "id": "step-3",
+      "title": "Send Legal Response to Landlord",
+      "description": "Respond to eviction notice challenging its legality and asserting your tenant rights",
+      "order": 3,
+      "timeframe": "within notice period",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "₹1,000-3,000"
+    },
+    {
+      "id": "step-4",
+      "title": "Approach Rent Control Authority",
+      "description": "File complaint with local rent control authority or housing tribunal if available",
+      "order": 4,
+      "timeframe": "within 15 days",
+      "required": false,
+      "difficulty": "medium",
+      "estimatedTime": "4-5 hours",
+      "cost": "₹500-2,000"
+    },
+    {
+      "id": "step-5",
+      "title": "File Civil Suit if Necessary",
+      "description": "If illegal eviction continues, file civil suit for injunction and damages",
+      "order": 5,
+      "timeframe": "if other remedies fail",
+      "required": false,
+      "difficulty": "high",
+      "estimatedTime": "1-2 days",
+      "cost": "₹10,000-25,000"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-transfer-property-act",
+      "title": "Transfer of Property Act, 1882",
+      "authority": "Legislative Department, Ministry of Law and Justice",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2338",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-rent-control-acts",
+      "title": "State Rent Control Acts (Various States)",
+      "authority": "State Governments",
+      "url": "https://www.indiacode.nic.in/rent-control-acts",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-tenant-rights-guide",
+      "title": "Tenant Rights and Responsibilities Guide",
+      "authority": "Ministry of Housing and Urban Affairs",
+      "url": "https://mohua.gov.in/tenant-rights-guide",
+      "type": "guideline",
+      "lastVerified": "2024-01-10",
+      "status": "active"
+    }
+  ],
+  "keywords": ["eviction", "landlord", "tenant", "rental", "notice", "illegal", "housing", "rent", "lease", "property"],
+  "variations": [
+    "Landlord wants to throw me out",
+    "Owner asking me to vacate immediately", 
+    "Received eviction notice without reason",
+    "Landlord threatening to cut utilities",
+    "Being forced to leave rental property",
+    "Property owner harassing to vacate"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager",
+    "version": "1.0",
+    "tags": ["housing", "eviction", "tenant-rights", "rental-law", "landlord-tenant"],
+    "difficulty": "intermediate",
+    "estimatedReadingTime": "6 minutes"
+  }
+}

@@ -82,6 +82,9 @@ export interface LegalRight {
   /** How this right applies to the specific scenario */
   application: string;
   
+  /** Action steps specific to exercising this right */
+  actionSteps: ActionStep[];
+  
   /** Limitations or conditions on this right */
   limitations?: string[];
   

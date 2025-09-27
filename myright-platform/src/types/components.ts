@@ -161,26 +161,26 @@ export interface AutoCompleteProps extends BaseComponentProps {
  * Props for ScenarioDetail component
  */
 export interface ScenarioDetailProps extends BaseComponentProps {
-  /** Legal scenario to display */
+  /** The legal scenario to display */
   scenario: LegalScenario;
   
-  /** Whether to show all action steps expanded */
+  /** Whether to expand all sections by default */
   expandedByDefault?: boolean;
   
-  /** Callback when action step is clicked */
+  /** Callback when an action step is clicked */
   onActionStepClick?: (step: ActionStep) => void;
   
-  /** Callback when source link is clicked */
+  /** Callback when a source link is clicked */
   onSourceClick?: (url: string) => void;
   
   /** Whether to show related scenarios */
   showRelatedScenarios?: boolean;
   
-  /** Related scenarios data */
+  /** Array of related scenarios */
   relatedScenarios?: LegalScenario[];
   
-  /** Display mode */
-  mode?: 'full' | 'preview' | 'print';
+  /** Display mode for different contexts */
+  mode?: 'full' | 'preview' | 'print' | 'mobile';
 }
 
 /**

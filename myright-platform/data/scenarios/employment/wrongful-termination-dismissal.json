@@ -1,0 +1,130 @@
+{
+  "id": "wrongful-termination-dismissal",
+  "title": "Wrongful Termination or Unfair Dismissal",
+  "description": "When you are terminated from employment without proper cause, due process, or in violation of labor laws",
+  "category": "employment",
+  "severity": "high",
+  "rights": [
+    {
+      "id": "right-to-due-process",
+      "title": "Right to Fair Hearing Before Termination",
+      "description": "Right to proper notice, opportunity to explain, and due process before dismissal",
+      "legalBasis": "Industrial Disputes Act, 1947",
+      "section": "Section 25F"
+    },
+    {
+      "id": "right-to-notice-compensation",
+      "title": "Right to Notice Period or Compensation",
+      "description": "Right to proper notice period as per contract or compensation in lieu of notice",
+      "legalBasis": "Industrial Employment (Standing Orders) Act, 1946",
+      "section": "Section 13"
+    },
+    {
+      "id": "right-to-reinstatement",
+      "title": "Right to Seek Reinstatement",
+      "description": "Right to approach labor court for reinstatement if termination is found illegal",
+      "legalBasis": "Industrial Disputes Act, 1947",
+      "section": "Section 11A"
+    }
+  ],
+  "actionSteps": [
+    {
+      "id": "step-1",
+      "title": "Preserve Termination Documents", 
+      "description": "Collect and safely store termination letter, employment contract, and all related documents",
+      "order": 1,
+      "timeframe": "immediate",
+      "required": true,
+      "difficulty": "easy",
+      "estimatedTime": "1 hour",
+      "cost": "free"
+    },
+    {
+      "id": "step-2",
+      "title": "Review Employment Terms",
+      "description": "Examine employment contract for notice period, termination clauses, and procedural requirements",
+      "order": 2,
+      "timeframe": "within 2 days",
+      "required": true,
+      "difficulty": "medium",
+      "estimatedTime": "2-3 hours",
+      "cost": "free"
+    },
+    {
+      "id": "step-3",
+      "title": "Send Legal Notice to Employer",
+      "description": "Send formal legal notice challenging wrongful termination and demanding reinstatement",
+      "order": 3,
+      "timeframe": "within 30 days",
+      "required": true,
+      "difficulty": "medium", 
+      "estimatedTime": "1 day",
+      "cost": "₹2,000-5,000"
+    },
+    {
+      "id": "step-4",
+      "title": "File Complaint with Labour Court",
+      "description": "If employer doesn't respond, file formal complaint with appropriate labour court or tribunal",
+      "order": 4,
+      "timeframe": "within 45 days of termination",
+      "required": false,
+      "difficulty": "high",
+      "estimatedTime": "3-5 days",
+      "cost": "₹5,000-15,000"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-industrial-disputes-act",
+      "title": "Industrial Disputes Act, 1947",
+      "authority": "Ministry of Labour and Employment",
+      "url": "https://labour.gov.in/sites/default/files/TheIndustrialDisputesAct1947.pdf",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-standing-orders-act",
+      "title": "Industrial Employment (Standing Orders) Act, 1946",
+      "authority": "Ministry of Labour and Employment",
+      "url": "https://labour.gov.in/sites/default/files/IndustrialEmploymentStandingOrdersAct1946.pdf",
+      "type": "law",
+      "lastVerified": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "source-termination-guidelines",
+      "title": "Guidelines on Employee Termination Procedures",
+      "authority": "Labour Ministry",
+      "url": "https://labour.gov.in/termination-guidelines",
+      "type": "guideline",
+      "lastVerified": "2024-01-10",
+      "status": "active"
+    }
+  ],
+  "keywords": ["termination", "dismissal", "fired", "wrongful", "unfair", "notice period", "reinstatement", "employment", "job loss"],
+  "variations": [
+    "Company fired me without notice",
+    "Terminated without proper reason",
+    "Boss dismissed me unfairly",
+    "Lost job without due process",
+    "Employer terminated illegally",
+    "Fired without cause or warning"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15"
+  },
+  "metadata": {
+    "createdBy": "content-team",
+    "reviewedBy": "legal-expert",
+    "approvedBy": "content-manager",
+    "version": "1.1",
+    "tags": ["employment", "termination", "dismissal", "labour-law", "job-security"],
+    "difficulty": "advanced",
+    "estimatedReadingTime": "7 minutes"
+  }
+}

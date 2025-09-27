@@ -53,6 +53,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
         aria-label="Loading search results"
         {...props}
       >
+        <div className="text-center py-4 mb-4">
+          <div className="text-gray-600 font-medium">Searching...</div>
+        </div>
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, index) => (
             <div key={index} className="animate-pulse bg-white rounded-lg p-6 shadow-sm border">
@@ -102,7 +105,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             No results found
           </div>
           <div className="text-gray-600 text-sm">
-            Try adjusting your search terms or filters
+            Try different keywords or adjust your filters
           </div>
         </div>
       </div>
@@ -127,7 +130,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             <span> for &ldquo;<span className="font-medium text-gray-900">{query}</span>&rdquo;</span>
           )}
           {searchTime && (
-            <span className="text-gray-500"> ({searchTime}ms)</span>
+            <span className="text-gray-500"> · Search completed in {searchTime}ms</span>
           )}
         </div>
       </div>

@@ -1,0 +1,148 @@
+{
+  "id": "rent-increase-unlawful",
+  "title": "Landlord Demanding Unlawful Rent Increase",
+  "description": "When your landlord demands an unreasonable rent increase or increases rent without following proper legal procedures, you have rights to challenge this action.",
+  "category": "housing",
+  "rights": [
+    {
+      "id": "rent-control-protection",
+      "title": "Protection Under Rent Control Laws",
+      "description": "Tenants are protected against arbitrary rent increases under state rent control acts.",
+      "legalBasis": {
+        "law": "State Rent Control Acts",
+        "section": "Various sections",
+        "url": "https://www.indiacode.nic.in/"
+      },
+      "application": "Applies to properties covered under rent control acts. Rent can only be increased as per prescribed rates and procedures.",
+      "limitations": [
+        "Not all properties are covered under rent control",
+        "New constructions may be exempt"
+      ]
+    },
+    {
+      "id": "notice-requirement",
+      "title": "Right to Proper Notice for Rent Increase",
+      "description": "Landlord must give adequate notice before increasing rent as per tenancy agreement or local laws.",
+      "legalBasis": {
+        "law": "Indian Contract Act, 1872",
+        "section": "Section 106",
+        "url": "https://www.indiacode.nic.in/handle/123456789/2187"
+      },
+      "application": "Usually 1-3 months notice required depending on rent payment frequency and local laws.",
+      "examples": [
+        "Monthly rent requires 1 month notice",
+        "Must be in writing for rent-controlled properties"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Review Your Tenancy Agreement",
+      "description": "Check your rent agreement for clauses about rent increases, notice periods, and any escalation terms.",
+      "type": "documentation",
+      "difficulty": "easy",
+      "timeEstimate": "30 minutes",
+      "cost": "free",
+      "documentsNeeded": [
+        "Original rent agreement/lease deed",
+        "Any amendments or addendums",
+        "Previous rent receipts"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Check Local Rent Control Laws",
+      "description": "Verify if your property falls under rent control and what are the permissible rent increase rates.",
+      "type": "research",
+      "difficulty": "medium",
+      "timeEstimate": "2-3 hours",
+      "cost": "free",
+      "contacts": [
+        {
+          "name": "District Collectorate",
+          "type": "government",
+          "description": "For rent control information"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Send Written Response to Landlord",
+      "description": "Respond in writing to the rent increase notice, stating your objections with legal basis.",
+      "type": "communication",
+      "difficulty": "medium",
+      "timeEstimate": "1-2 hours",
+      "cost": "free",
+      "prerequisites": [1, 2],
+      "templates": [
+        "Objection letter template for unlawful rent increase"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Approach Rent Controller/Tribunal",
+      "description": "File application with rent controller or housing tribunal if landlord persists with unlawful increase.",
+      "type": "legal",
+      "difficulty": "hard",
+      "timeEstimate": "3-6 months",
+      "cost": "low",
+      "prerequisites": [3],
+      "contacts": [
+        {
+          "name": "Rent Controller Office",
+          "type": "quasi_judicial",
+          "description": "District level rent control authority",
+          "website": "Check state government website"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Tenant Helpline",
+      "type": "helpline",
+      "phones": ["1800-XXX-XXXX"],
+      "description": "For tenant rights information",
+      "available24x7": false,
+      "isFree": true
+    }
+  ],
+  "keywords": [
+    "rent increase",
+    "unlawful rent hike",
+    "landlord demanding more rent",
+    "rent control",
+    "tenant rights",
+    "housing rights",
+    "rent controller",
+    "tenancy agreement",
+    "rent tribunal"
+  ],
+  "variations": [
+    "My landlord suddenly increased rent by 50%",
+    "Can landlord increase rent without notice",
+    "Fighting excessive rent increase",
+    "Rent control laws in my city",
+    "How to challenge rent hike",
+    "Landlord breaking rent agreement for money",
+    "Legal limit on rent increase",
+    "Filing complaint against landlord for rent",
+    "Tenant protection from rent rise"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "medium",
+  "timeSensitivity": {
+    "urgent": false,
+    "deadline": "Within notice period given by landlord",
+    "description": "Respond within the notice period to preserve your rights"
+  }
+}

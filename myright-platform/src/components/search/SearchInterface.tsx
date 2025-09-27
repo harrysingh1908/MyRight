@@ -209,7 +209,7 @@ export const SearchInterface: React.FC<SearchInterfaceProps> = ({
               <button
                 type="button"
                 onClick={handleClear}
-                aria-label="Clear search"
+                aria-label="Clear query"
                 className={cn(
                   'absolute right-12 top-1/2 -translate-y-1/2',
                   'p-1 rounded-full hover:bg-gray-100',

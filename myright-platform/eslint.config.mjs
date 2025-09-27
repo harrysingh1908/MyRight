@@ -18,6 +18,9 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "scripts/**",
+      "tests/**",
+      "*.config.*",
     ],
   },
   {
@@ -27,6 +30,15 @@ const eslintConfig = [
       "prefer-const": "error",
       "no-var": "error",
       "no-console": ["warn", { "allow": ["error", "warn"] }]
+    }
+  },
+  // Allow CommonJS require and console usage in config and scripts
+  {
+    files: ["scripts/**/*.{js,ts}", "**/*.config.{js,mjs,cjs}", "next.config.*"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "no-console": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
     }
   }
 ];

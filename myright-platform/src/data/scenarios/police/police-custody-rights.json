@@ -1,0 +1,205 @@
+{
+  "id": "police-custody-rights",
+  "title": "Rights During Police Arrest and Custody",
+  "description": "Understanding your fundamental rights when arrested or detained by police, including the right to legal representation and protection from illegal detention.",
+  "category": "police",
+  "rights": [
+    {
+      "id": "arrest-notification-right",
+      "title": "Right to Know Grounds of Arrest",
+      "description": "Police must inform you of the exact charges and grounds for your arrest at the time of detention.",
+      "legalBasis": {
+        "law": "Constitution of India",
+        "section": "Article 22(1)",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1362"
+      },
+      "application": "Must be informed immediately in a language you understand. Applies to all arrests except under preventive detention laws.",
+      "limitations": [
+        "Exception for preventive detention cases",
+        "Information can be delayed in exceptional circumstances"
+      ]
+    },
+    {
+      "id": "legal-representation-right",
+      "title": "Right to Legal Counsel",
+      "description": "Right to consult and be defended by a lawyer of your choice from the time of arrest.",
+      "legalBasis": {
+        "law": "Constitution of India",
+        "section": "Article 22(1)",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1362"
+      },
+      "application": "Can meet lawyer in private, free legal aid if cannot afford, police cannot deny this right.",
+      "examples": [
+        "Right to make phone call to lawyer/family",
+        "Lawyer can be present during interrogation",
+        "Free legal aid through Legal Services Authority"
+      ]
+    },
+    {
+      "id": "medical-examination-right",
+      "title": "Right to Medical Examination",
+      "description": "Right to be examined by a doctor upon arrest and before release to document any injuries.",
+      "legalBasis": {
+        "law": "Code of Criminal Procedure, 1973",
+        "section": "Section 54",
+        "url": "https://www.indiacode.nic.in/handle/123456789/1727"
+      },
+      "application": "Mandatory medical examination within 24 hours of arrest, you can request additional examination.",
+      "examples": [
+        "Documentation of pre-existing injuries",
+        "Evidence of custodial torture if any",
+        "Right to independent medical examination"
+      ]
+    }
+  ],
+  "actionSteps": [
+    {
+      "order": 1,
+      "title": "Stay Calm and Exercise Your Rights",
+      "description": "Remain calm, ask for grounds of arrest, and immediately exercise your right to legal counsel.",
+      "type": "immediate_action",
+      "difficulty": "medium",
+      "timeEstimate": "Immediate",
+      "cost": "free",
+      "tips": [
+        "Do not resist arrest physically",
+        "Clearly state you want a lawyer",
+        "Ask for written copy of arrest memo",
+        "Remember or note down officer badge numbers"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Contact Family/Lawyer Immediately",
+      "description": "Use your right to inform family/friends and contact a lawyer as soon as possible.",
+      "type": "communication",
+      "difficulty": "easy",
+      "timeEstimate": "Within 1 hour",
+      "cost": "free",
+      "prerequisites": [1],
+      "contacts": [
+        {
+          "name": "Legal Aid Helpline",
+          "phones": ["15100"],
+          "type": "legal_aid",
+          "available24x7": true,
+          "isFree": true
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Insist on Medical Examination",
+      "description": "Request immediate medical examination and ensure any injuries or health conditions are documented.",
+      "type": "medical",
+      "difficulty": "easy",
+      "timeEstimate": "2-4 hours",
+      "cost": "free",
+      "prerequisites": [1],
+      "warnings": [
+        "Insist on government hospital examination",
+        "Get copy of medical report"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Apply for Bail",
+      "description": "Work with your lawyer to apply for bail at the earliest opportunity through court.",
+      "type": "legal",
+      "difficulty": "hard",
+      "timeEstimate": "24-48 hours",
+      "cost": "varies",
+      "prerequisites": [2],
+      "contacts": [
+        {
+          "name": "Duty Magistrate Court",
+          "type": "court",
+          "description": "For urgent bail applications"
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "File Complaint for Rights Violation",
+      "description": "If your rights were violated during arrest or custody, file formal complaint with appropriate authorities.",
+      "type": "complaint",
+      "difficulty": "medium",
+      "timeEstimate": "1-2 weeks",
+      "cost": "free",
+      "prerequisites": [3],
+      "contacts": [
+        {
+          "name": "Human Rights Commission",
+          "type": "rights_body",
+          "website": "https://nhrc.nic.in/",
+          "description": "For custodial rights violations"
+        },
+        {
+          "name": "Superintendent of Police",
+          "type": "police_complaint",
+          "description": "For internal police complaint"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Police Control Room",
+      "type": "emergency",
+      "phones": ["100"],
+      "description": "Emergency police assistance",
+      "available24x7": true
+    },
+    {
+      "name": "National Human Rights Commission",
+      "type": "rights_body",
+      "phones": ["011-23384863"],
+      "website": "https://nhrc.nic.in/",
+      "description": "For human rights violations"
+    },
+    {
+      "name": "Legal Services Authority",
+      "type": "legal_aid",
+      "phones": ["15100"],
+      "website": "https://nalsa.gov.in/",
+      "description": "Free legal aid services"
+    }
+  ],
+  "keywords": [
+    "police arrest",
+    "custody rights",
+    "legal representation",
+    "bail application",
+    "custodial violence",
+    "arrest procedure",
+    "police detention",
+    "fundamental rights",
+    "criminal procedure"
+  ],
+  "variations": [
+    "Police arrested me without telling reason",
+    "Rights when taken to police station",
+    "Can police arrest without warrant",
+    "How to get bail after arrest",
+    "Police not allowing me to call lawyer",
+    "What to do during police interrogation",
+    "Illegal detention by police",
+    "Police torture in custody",
+    "False case registered against me"
+  ],
+  "lastUpdated": "2024-01-15",
+  "validationStatus": {
+    "sourcesVerified": true,
+    "legalReview": true,
+    "clarityReview": true,
+    "lastValidated": "2024-01-15",
+    "validator": "Legal Content Team",
+    "notes": []
+  },
+  "severity": "critical",
+  "timeSensitivity": {
+    "urgent": true,
+    "deadline": "Immediate - rights must be exercised at time of arrest",
+    "description": "Custodial rights are time-critical and must be asserted immediately"
+  }
+}
